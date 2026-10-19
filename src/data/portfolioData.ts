@@ -35,7 +35,6 @@ export interface EducationItem {
   institution: string;
   degree: string;
   period: string;
-  grade: string;
   details?: string;
 }
 
@@ -85,7 +84,7 @@ export const portfolioConfig = {
       }
     ],
     verifiedFacts: [
-      { label: "B.Tech CSE Score", value: "8.67 CGPA" },
+      { label: "Engineering Degree", value: "B.Tech CSE" },
       { label: "Production & Live Apps", value: "3+ Core Systems" },
       { label: "Professional Internships", value: "4 Completed/Ongoing" },
       { label: "Verified Repositories", value: "8+ on GitHub" }
@@ -363,21 +362,18 @@ export const portfolioConfig = {
       institution: "Krishna Engineering College",
       degree: "Bachelor of Technology (B.Tech) – Computer Science & Engineering",
       period: "2021 – 2025",
-      grade: "8.67 CGPA",
       details: "Comprehensive coursework in Data Structures, Database Systems, Computer Networks, Operating Systems, and Software Engineering."
     },
     {
       institution: "N.S. Public School",
       degree: "Senior Secondary (Class XII CBSE)",
       period: "2021",
-      grade: "79.9%",
       details: "Major in Physics, Chemistry, and Mathematics (PCM)."
     },
     {
       institution: "Victoria Public Sr. Sec. School",
       degree: "Secondary Education (Class X CBSE)",
       period: "2019",
-      grade: "55.9%",
       details: "Foundational secondary school education."
     }
   ] as EducationItem[],

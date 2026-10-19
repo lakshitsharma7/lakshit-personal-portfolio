@@ -83,7 +83,7 @@ export const About: React.FC = () => {
                 Krishna Engineering College • B.Tech in CSE (2021 – 2025)
               </h3>
               <p className="text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                Graduating with an 8.67 CGPA. Combined academic foundations in software architecture and algorithms with hands-on enterprise internship projects at Indovision Services, Nexen Bloom, and IBM SkillsBuild.
+                Combined academic foundations in software architecture, data systems, and algorithms with hands-on enterprise internship projects at Indovision Services, Nexen Bloom, and IBM SkillsBuild.
               </p>
             </div>
           </div>
