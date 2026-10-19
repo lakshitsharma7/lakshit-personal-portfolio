@@ -65,6 +65,66 @@
   box-shadow: 0 16px 32px -12px rgba(14, 165, 233, 0.15);
 }
 
+/* 3D AI Agent Animations */
+@keyframes orbit-spin-x {
+  0% { transform: rotateX(65deg) rotateZ(0deg); }
+  100% { transform: rotateX(65deg) rotateZ(360deg); }
+}
+
+@keyframes orbit-spin-y {
+  0% { transform: rotateY(65deg) rotateZ(0deg); }
+  100% { transform: rotateY(65deg) rotateZ(360deg); }
+}
+
+@keyframes orbit-spin-z {
+  0% { transform: rotateX(45deg) rotateY(45deg) rotateZ(0deg); }
+  100% { transform: rotateX(45deg) rotateY(45deg) rotateZ(360deg); }
+}
+
+@keyframes agent-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+
+.animate-agent-float {
+  animation: agent-float 3.5s ease-in-out infinite;
+}
+
+@keyframes agent-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+.animate-agent-blink {
+  animation: agent-blink 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateX(-150%); }
+  50%, 100% { transform: translateX(150%); }
+}
+
+.animate-scanline {
+  animation: scanline 2.5s ease-in-out infinite;
+}
+
+@keyframes wave-oscillate {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1.2); }
+}
+
+.animate-wave-1 {
+  animation: wave-oscillate 0.6s ease-in-out infinite;
+}
+
+.animate-wave-2 {
+  animation: wave-oscillate 0.45s ease-in-out infinite 0.15s;
+}
+
+.animate-wave-3 {
+  animation: wave-oscillate 0.7s ease-in-out infinite 0.3s;
+}
+
 /* Accessibility: Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
@@ -77,3 +137,4 @@
     transition-duration: 0s !important;
   }
 }
+

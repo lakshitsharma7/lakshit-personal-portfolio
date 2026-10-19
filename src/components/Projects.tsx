@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { portfolioConfig } from '../data/portfolioData';
 import type { ProjectCaseStudy } from '../data/portfolioData';
 import { ProjectModal } from './ProjectModal';
@@ -9,6 +9,31 @@ export const Projects: React.FC = () => {
   const { projects } = portfolioConfig;
   const [activeTab, setActiveTab] = useState<'All' | 'AI & Engineering' | 'Data Analytics' | 'Mobile & Web'>('All');
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
+
+  useEffect(() => {
+    const handleFilterEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail && ['All', 'AI & Engineering', 'Data Analytics', 'Mobile & Web'].includes(customEvent.detail)) {
+        setActiveTab(customEvent.detail as any);
+      }
+    };
+
+    const handleOpenProject = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      const found = projects.find(p => p.id === customEvent.detail);
+      if (found) {
+        setSelectedProject(found);
+      }
+    };
+
+    window.addEventListener('filter-projects-tab', handleFilterEvent);
+    window.addEventListener('open-project-modal', handleOpenProject);
+    return () => {
+      window.removeEventListener('filter-projects-tab', handleFilterEvent);
+      window.removeEventListener('open-project-modal', handleOpenProject);
+    };
+  }, [projects]);
+
 
   const filteredProjects = activeTab === 'All'
     ? projects

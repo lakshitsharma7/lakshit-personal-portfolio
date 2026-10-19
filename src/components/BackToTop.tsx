@@ -25,7 +25,7 @@ export const BackToTop: React.FC = () => {
     <button
       type="button"
       onClick={scrollToTop}
-      className="fixed bottom-6 right-6 z-40 p-3 rounded-xl bg-slate-900/90 text-sky-400 hover:text-white hover:bg-sky-600 border border-slate-700/80 shadow-xl shadow-black/40 backdrop-blur-md transition-all duration-200 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-sky-500"
+      className="fixed bottom-24 right-6 z-40 p-3 rounded-xl bg-slate-900/90 text-sky-400 hover:text-white hover:bg-sky-600 border border-slate-700/80 shadow-xl shadow-black/40 backdrop-blur-md transition-all duration-200 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-sky-500"
       aria-label="Back to top"
       title="Scroll back to top"
     >

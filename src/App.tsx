@@ -9,6 +9,7 @@ import { EducationCertifications } from './components/EducationCertifications';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
+import { AIAssistant } from './components/AIAssistant/AIAssistant';
 
 export function App() {
   const [activeSection, setActiveSection] = useState('hero');
@@ -47,6 +48,7 @@ export function App() {
 
       <Footer />
       <BackToTop />
+      <AIAssistant activeSection={activeSection} />
     </div>
   );
 }
