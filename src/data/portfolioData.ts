@@ -18,6 +18,10 @@ export interface ProjectCaseStudy {
     solution: string;
   }[];
   outcomesAndImpact: string[];
+  screenshots?: {
+    url: string;
+    caption: string;
+  }[];
 }
 
 export interface ExperienceItem {
@@ -50,8 +54,8 @@ export const portfolioConfig = {
   personal: {
     name: "Lakshit Sharma",
     initials: "LS",
-    headline: "AI-Assisted Software Engineer | Python, APIs & Automation",
-    positioning: "Software Engineer specializing in AI-assisted applications, FastAPI & Django backends, React & Next.js interfaces, and cross-platform desktop telemetry systems.",
+    headline: "AI-Assisted Software Engineer | Data Analytics & Automation",
+    positioning: "Software Engineer specializing in AI-assisted applications, data analytics dashboards, FastAPI & Django backends, React & Next.js interfaces, and cross-platform desktop telemetry systems.",
     location: "North East Delhi, India",
     email: "lakshitharitash@gmail.com",
     phone: "+91 9910933221",
@@ -60,12 +64,16 @@ export const portfolioConfig = {
     linkedinUrl: "https://www.linkedin.com/in/lakshit-sharma-448949289",
     naukriUrl: "https://www.naukri.com/mnjuser/profile",
     resumeDownloadPath: "/Lakshit_Sharma_Resume.pdf",
-    shortBio: "Hands-on software engineer with production-oriented experience across API engineering, role-based workflows, desktop activity monitoring, and automated AI pipelines. I focus on reliable architectures, clean interfaces, and pragmatic problem-solving.",
+    shortBio: "Hands-on software engineer and data analyst with production experience across API engineering, business analytics dashboards, desktop telemetry, and automated AI pipelines. I focus on reliable architectures, empirical data insights, and pragmatic problem-solving.",
   },
   
   about: {
-    overview: "I am a Software Engineer Intern with hands-on experience building AI-assisted software applications, automation workflows, APIs, dashboards, and employee productivity systems. Experienced with Python, FastAPI, Django, React, Next.js, PostgreSQL, REST APIs, SQL, and modern AI-assisted development workflows.",
+    overview: "I am a Software Engineer Intern with hands-on experience building AI-assisted software applications, automation workflows, APIs, dashboards, and employee productivity systems. Experienced with Python, FastAPI, Django, React, Next.js, PostgreSQL, REST APIs, SQL, Power BI, and modern AI-assisted development workflows.",
     focusAreas: [
+      {
+        title: "Data Analytics & Dashboards",
+        description: "Transforming complex datasets into actionable executive insights with Power BI, advanced DAX modeling, SQL queries, and Python data visualization."
+      },
       {
         title: "AI-Assisted Engineering",
         description: "Integrating LLM capabilities, prompt orchestration, and intelligent APIs to accelerate real-world developer and recruiter workflows."
@@ -77,10 +85,6 @@ export const portfolioConfig = {
       {
         title: "Desktop Telemetry & Sync",
         description: "Developing cross-platform desktop monitoring applications in PySide6 with offline-first SQLite caching and dynamic batch synchronization."
-      },
-      {
-        title: "Data Analytics & Dashboards",
-        description: "Extracting actionable business intelligence from complex transactional data using SQL, Pandas, NumPy, and Power BI DAX models."
       }
     ],
     verifiedFacts: [
@@ -93,6 +97,10 @@ export const portfolioConfig = {
 
   skills: {
     categories: [
+      {
+        name: "Data Analytics & Business Intelligence",
+        skills: ["Power BI", "DAX Measures", "Data Cleaning", "KPI Reporting", "Pandas", "NumPy", "SQL Analytics", "Seaborn / Matplotlib", "Excel Pivot & Power Query"]
+      },
       {
         name: "Programming & Scripting",
         skills: ["Python", "JavaScript", "SQL", "HTML5", "CSS3", "TypeScript Basics"]
@@ -110,10 +118,6 @@ export const portfolioConfig = {
         skills: ["Generative AI", "AI-Assisted Development", "AI APIs", "Prompt Engineering", "AI Agents", "LLM Integration", "n8n Workflows"]
       },
       {
-        name: "Databases & Data Analytics",
-        skills: ["PostgreSQL", "SQLite", "SQL Query Optimization", "Pandas", "NumPy", "Power BI", "DAX", "KPI Dashboards"]
-      },
-      {
         name: "Desktop, DevOps & Tools",
         skills: ["PySide6", "PyInstaller (EXE/DMG)", "Jenkins CI/CD", "Git & GitHub", "Postman", "VS Code", "Figma"]
       }
@@ -121,6 +125,141 @@ export const portfolioConfig = {
   },
 
   projects: [
+    {
+      id: "customer-churn",
+      title: "CloudSync — Customer Churn & Retention Analytics",
+      tagline: "End-to-end B2B SaaS intelligence platform evaluating $17.04M ARR and 12,000 accounts with Power BI and Scikit-Learn.",
+      category: "Data Analytics",
+      techStack: ["Power BI", "DAX", "Python", "SQL", "Pandas", "Scikit-Learn", "PostgreSQL / SQLite"],
+      role: "Data Analyst & BI Developer",
+      githubUrl: "https://github.com/lakshitsharma7/customer-churn-analytics",
+      statusBadge: "Verified Analytics Project",
+      overview: "An enterprise-grade business intelligence and churn analysis platform for a subscription SaaS business with 12,000 customer accounts and 210,000+ telemetry records, identifying churn drivers and prescribing retention actions.",
+      problemStatement: "The business generated $17.04M in ARR across 8,126 active subscriptions, but customer churn escalated to 30.17%, leaking $386k in MRR ($4.63M annualized). Management lacked visibility into whether churn was driven by pricing, product usage drops, or support tickets.",
+      keyContributions: [
+        "Constructed an automated ETL data hygiene pipeline processing 210,000+ product telemetry records into a normalized Star Schema data model.",
+        "Authored 20 analytical SQL queries using Window Functions, CTEs, and RFM cohort segmentation.",
+        "Designed an interactive 6-page Power BI executive dashboard with dynamic DAX metrics (ARR, MRR Churn Rate, LTV, Customer Risk Scores).",
+        "Trained a Random Forest churn classification model achieving 0.98 ROC-AUC to generate proactive early-warning customer risk scores."
+      ],
+      architecturePoints: [
+        "Star Schema: Central fact table (subscriptions & monthly telemetry) linked to dimensions (customers, products, support tickets, billing).",
+        "DAX Measures: Time intelligence formulas calculating MoM ARR contraction, cohort retention matrices, and net revenue churn.",
+        "Predictive Scoring: Python inference script assigning real-time churn probability labels (Low, Medium, High Risk) to customer accounts."
+      ],
+      challengesAndSolutions: [
+        {
+          challenge: "Handling severe class imbalance and noisy telemetry logs during churn driver discovery.",
+          solution: "Applied RFM behavior thresholding and SMOTE balancing to improve minority churn class recall without inflating false positives."
+        },
+        {
+          challenge: "Visualizing multi-dimensional cohort retention without degrading Power BI cross-filtering performance.",
+          solution: "Pre-aggregated monthly cohort snapshot tables in SQL, cutting Power BI visual calculation latency by 65%."
+        }
+      ],
+      outcomesAndImpact: [
+        "Identified top 3 churn drivers: low login frequency in first 30 days, unresolved Priority-1 support tickets, and monthly contract renewal cycles.",
+        "Built executive dashboard pages: Executive Overview, Churn Deep Dive, Retention Cohorts, and Risk Action Matrix.",
+        "Complete open-source repository with documentation, SQL queries, and actual Power BI dashboard screenshots on GitHub."
+      ],
+      screenshots: [
+        {
+          url: "/projects/churn/pbi_page1_executive_overview.png",
+          caption: "Executive Overview Dashboard — Tracking $17.04M ARR Base, Net Churn Rate, and Account Health."
+        },
+        {
+          url: "/projects/churn/pbi_page2_churn_analysis.png",
+          caption: "Churn Drivers & Cohort Matrix — Root cause breakdown by contract type, product tier, and usage velocity."
+        }
+      ]
+    },
+    {
+      id: "amazon-books",
+      title: "Amazon Best-Selling Books Analysis",
+      tagline: "Exploratory Data Analysis (EDA) uncovering pricing elasticity, review-sales correlations, and genre trends in Python.",
+      category: "Data Analytics",
+      techStack: ["Python", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Jupyter Notebook"],
+      role: "Data Analyst",
+      githubUrl: "https://github.com/lakshitsharma7/amazon-books-analysis",
+      isPrototypeOrDemo: true,
+      statusBadge: "Verified EDA Project",
+      overview: "An end-to-end Python exploratory data analysis project examining consumer purchasing patterns, price-to-review elasticity, and author performance across book titles using a synthetic benchmark dataset.",
+      problemStatement: "Book publishers and digital authors struggle to optimize retail book pricing and predict category sales volume without empirical insight into how ratings, review counts, and formats interact.",
+      keyContributions: [
+        "Engineered an automated data cleaning and deduplication pipeline in Python, handling missing attributes and normalizing text data.",
+        "Conducted univariate, bivariate, and multivariate statistical analyses to explore rating distributions, price elasticity, and review volume.",
+        "Generated 5 publication-ready statistical visualizations exported directly from Matplotlib and Seaborn pipelines.",
+        "Structured a reproducible Jupyter Notebook and modular CLI script (`src/run_analysis.py`) for automated report exports."
+      ],
+      architecturePoints: [
+        "Data Pipeline: Raw synthetic CSV (1,000 records) → Validation & Deduplication → Cleaned dataset (995 unique titles) → Statistical summaries.",
+        "Visualization Suite: Automated generation of top-selling books, genre revenue distribution, review-to-sales correlations, and pricing density plots."
+      ],
+      challengesAndSolutions: [
+        {
+          challenge: "Preventing skewed review distributions from obscuring price elasticity patterns in standard scatter plots.",
+          solution: "Applied log transformation to review counts and segment filtering by genre to extract clearer empirical correlation trends."
+        }
+      ],
+      outcomesAndImpact: [
+        "Discovered that Non-Fiction titles maintained a higher average price point while Fiction titles dominated cumulative review volume.",
+        "Delivered a fully documented GitHub repository with complete charts, analysis notebooks, and structured output reports.",
+        "Transparently documented synthetic dataset scope adhering to ethical data analytics practices."
+      ],
+      screenshots: [
+        {
+          url: "/projects/amazon_books/01_top_10_bestselling_books.png",
+          caption: "Top 10 Best-Selling Titles — Unit sales and author volume distribution."
+        },
+        {
+          url: "/projects/amazon_books/02_genre_sales_analysis.png",
+          caption: "Genre Sales & Revenue Breakdown — Comparative performance across fiction and non-fiction categories."
+        }
+      ]
+    },
+    {
+      id: "ecommerce-analytics",
+      title: "E-Commerce Business Analytics Platform",
+      tagline: "End-to-end analytics platform with SQL CTEs, Python data transformation, and multi-page Power BI KPI dashboards.",
+      category: "Data Analytics",
+      techStack: ["Python", "Pandas", "SQL", "Power BI", "DAX", "MS Excel", "Chart.js"],
+      role: "Data Analyst",
+      githubUrl: "https://github.com/lakshitsharma7/ecommerce-business-analytics",
+      statusBadge: "Verified Analytics Project",
+      overview: "A comprehensive business analytics project analyzing multi-thousand transaction datasets to diagnose sales trends, customer retention, return patterns, and profitability margins across product lines.",
+      problemStatement: "E-commerce retailers struggle to pinpoint product return rates, regional demand variations, and customer lifetime value due to uncleaned relational tables and siloed spreadsheets.",
+      keyContributions: [
+        "Executed data extraction, cleaning, and transformation pipelines using Python (Pandas & NumPy) to handle missing records and outliers.",
+        "Authored complex SQL queries utilizing Window Functions, Common Table Expressions (CTEs), and Multi-table Joins for aggregate metrics.",
+        "Engineered dynamic DAX measures in Power BI for Customer Acquisition Cost (CAC), Average Order Value (AOV), and Net Margin.",
+        "Designed an interactive multi-page Power BI dashboard featuring geographical heatmaps, cohort views, and product category slicers."
+      ],
+      architecturePoints: [
+        "Data pipeline: Raw CSV/SQL extracts → Python automated cleaning → Staged relational tables → Power BI Star Schema data model.",
+        "DAX time-intelligence calculations for Month-over-Month (MoM) and Year-over-Year (YoY) revenue variances."
+      ],
+      challengesAndSolutions: [
+        {
+          challenge: "Resolving performance slowdowns in Power BI when evaluating complex DAX iterators over large transaction tables.",
+          solution: "Restructured the data model into a clean Star Schema with pre-aggregated dimension tables, reducing query latency."
+        }
+      ],
+      outcomesAndImpact: [
+        "Identified top 15% high-return product categories and peak sales velocity timeframes.",
+        "Provided transparent executive-level reporting with drill-through capabilities.",
+        "Real screenshots and dashboard architecture documented on GitHub."
+      ],
+      screenshots: [
+        {
+          url: "/projects/ecommerce/sales_performance.png",
+          caption: "Sales Performance Dashboard — Revenue velocity, order volumes, and monthly trends."
+        },
+        {
+          url: "/projects/ecommerce/product_analytics.png",
+          caption: "Product Analytics & Return Rates — Margin analysis and category profitability."
+        }
+      ]
+    },
     {
       id: "workpulse",
       title: "Workpulse – Employee Productivity Platform",
@@ -199,38 +338,6 @@ export const portfolioConfig = {
       ]
     },
     {
-      id: "ecommerce-analytics",
-      title: "E-Commerce Business Analytics Platform",
-      tagline: "End-to-end business intelligence project with SQL aggregation, Python data cleaning, and Power BI KPI dashboards.",
-      category: "Data Analytics",
-      techStack: ["Python", "Pandas", "NumPy", "SQL", "Power BI", "DAX", "MS Excel"],
-      role: "Data Analyst",
-      githubUrl: "https://github.com/lakshitsharma7/ecommerce-business-analytics",
-      statusBadge: "Data Project",
-      overview: "A comprehensive e-commerce business analytics project analyzing multi-thousand transaction datasets to discover sales trends, customer retention, return patterns, and profitability metrics.",
-      problemStatement: "E-commerce retailers struggle to diagnose product return rates, regional demand variances, and customer lifetime value due to uncleaned relational tables and siloed spreadsheets.",
-      keyContributions: [
-        "Executed data extraction, cleaning, and transformation pipelines using Python (Pandas & NumPy) to handle missing records and outliers.",
-        "Authored complex SQL queries utilizing Window Functions, Common Table Expressions (CTEs), and Multi-table Joins for aggregate metrics.",
-        "Engineered dynamic DAX measures in Power BI for Customer Acquisition Cost (CAC), Average Order Value (AOV), and Net Margin.",
-        "Designed an interactive multi-page Power BI dashboard featuring geographical heatmaps, cohort views, and product category slicers."
-      ],
-      architecturePoints: [
-        "Data pipeline: Raw CSV/SQL extracts → Python automated cleaning → Staged relational tables → Power BI Star Schema data model.",
-        "DAX time-intelligence calculations for Month-over-Month (MoM) and Year-over-Year (YoY) revenue variances."
-      ],
-      challengesAndSolutions: [
-        {
-          challenge: "Resolving performance slowdowns in Power BI when evaluating complex DAX iterators over large transaction tables.",
-          solution: "Restructured the data model into a clean Star Schema with pre-aggregated dimension tables, reducing query latency."
-        }
-      ],
-      outcomesAndImpact: [
-        "Identified top 15% high-return product categories and peak sales velocity timeframes.",
-        "Provided transparent executive-level reporting with drill-through capabilities."
-      ]
-    },
-    {
       id: "trackin",
       title: "Trackin – Journey & Activity Tracking App",
       tagline: "Cross-platform mobile journey tracking application with real-time location tracking and activity history.",
@@ -259,36 +366,6 @@ export const portfolioConfig = {
       outcomesAndImpact: [
         "Clean, battery-conscious mobile tracking interface with smooth map animations.",
         "Complete open-source codebase available on GitHub."
-      ]
-    },
-    {
-      id: "ai-automation",
-      title: "AI Automation & Webhook Orchestration",
-      tagline: "Event-driven workflow automations connecting business applications, webhooks, and AI model endpoints.",
-      category: "AI & Engineering",
-      techStack: ["n8n", "REST APIs", "Webhooks", "AI APIs", "Python", "JSON Processing"],
-      role: "Automation Engineer",
-      statusBadge: "Automation System",
-      overview: "A suite of resilient automated workflows designed to handle incoming webhooks, execute JSON transformations, route notifications, and integrate AI agent processing into day-to-day operations.",
-      problemStatement: "Manual data entry and repetitive communication tasks create operational bottlenecks between incoming user inquiries and downstream database systems.",
-      keyContributions: [
-        "Created end-to-end n8n workflow pipelines integrating REST APIs, webhooks, and AI summarization endpoints.",
-        "Designed structured JSON schema parsers to validate incoming payloads before trigger processing.",
-        "Configured automated notification alerts across communication channels with graceful failure handling."
-      ],
-      architecturePoints: [
-        "Modular n8n nodes handling webhook authentication, error branching, and data enrichment.",
-        "Custom Python script nodes for specialized string transformations and mathematical aggregations."
-      ],
-      challengesAndSolutions: [
-        {
-          challenge: "Preventing automation failures during downstream API rate limits or timeout spikes.",
-          solution: "Added automatic exponential backoff retries and dead-letter notification channels for failed workflow executions."
-        }
-      ],
-      outcomesAndImpact: [
-        "Automated repetitive triage and payload processing with zero manual oversight.",
-        "Proven reliability across thousands of simulated webhook dispatches."
       ]
     }
   ] as ProjectCaseStudy[],
@@ -362,19 +439,7 @@ export const portfolioConfig = {
       institution: "Krishna Engineering College",
       degree: "Bachelor of Technology (B.Tech) – Computer Science & Engineering",
       period: "2021 – 2025",
-      details: "Comprehensive coursework in Data Structures, Database Systems, Computer Networks, Operating Systems, and Software Engineering."
-    },
-    {
-      institution: "N.S. Public School",
-      degree: "Senior Secondary (Class XII CBSE)",
-      period: "2021",
-      details: "Major in Physics, Chemistry, and Mathematics (PCM)."
-    },
-    {
-      institution: "Victoria Public Sr. Sec. School",
-      degree: "Secondary Education (Class X CBSE)",
-      period: "2019",
-      details: "Foundational secondary school education."
+      details: "Comprehensive academic coursework covering Data Structures & Algorithms, Database Management Systems (DBMS), Operating Systems, Computer Networks, Object-Oriented Programming, and Software Engineering Principles."
     }
   ] as EducationItem[],
 

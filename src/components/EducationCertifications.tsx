@@ -26,32 +26,34 @@ export const EducationCertifications: React.FC = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="max-w-3xl">
             {education.map((item, idx) => (
               <div
                 key={idx}
-                className="glass-panel p-6 rounded-2xl border border-slate-800/90 flex flex-col justify-between"
+                className="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800/90 shadow-xl"
               >
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-mono text-sky-400 flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      {item.period}
-                    </span>
-                  </div>
-
-                  <h3 className="text-base font-bold text-white tracking-tight mb-1">
-                    {item.institution}
-                  </h3>
-                  <p className="text-xs text-indigo-400 font-mono mb-3">
-                    {item.degree}
-                  </p>
-                  {item.details && (
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      {item.details}
-                    </p>
-                  )}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                  <span className="text-xs font-mono text-sky-400 flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {item.period}
+                  </span>
+                  <span className="px-3 py-1 rounded-full text-xs font-mono bg-sky-950/80 border border-sky-800 text-sky-300 font-semibold inline-flex items-center gap-1 w-fit">
+                    <GraduationCap className="w-3.5 h-3.5" />
+                    Verified Degree
+                  </span>
                 </div>
+
+                <h3 className="text-xl font-bold text-white tracking-tight mb-1">
+                  {item.institution}
+                </h3>
+                <p className="text-sm font-semibold text-indigo-400 font-mono mb-4">
+                  {item.degree}
+                </p>
+                {item.details && (
+                  <p className="text-sm text-slate-300 leading-relaxed pt-3 border-t border-slate-800/60">
+                    {item.details}
+                  </p>
+                )}
               </div>
             ))}
           </div>

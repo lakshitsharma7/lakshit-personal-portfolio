@@ -82,6 +82,23 @@ export const Projects: React.FC = () => {
                   </span>
                 </div>
 
+                {/* Project Screenshot Visual Preview */}
+                {project.screenshots && project.screenshots.length > 0 && (
+                  <div className="mb-4 overflow-hidden rounded-xl border border-slate-700/60 bg-slate-950 aspect-video relative group/img">
+                    <img
+                      src={project.screenshots[0].url}
+                      alt={project.screenshots[0].caption}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent flex items-end p-2.5">
+                      <span className="text-[11px] font-mono text-sky-300 truncate">
+                        📊 {project.screenshots[0].caption}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
                 {/* Project Title */}
                 <h3 className="text-lg font-bold text-white group-hover:text-sky-300 transition-colors tracking-tight mb-2">
                   {project.title}

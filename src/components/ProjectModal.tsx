@@ -101,6 +101,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               </p>
             </div>
 
+            {/* Project Visuals & Screenshots */}
+            {project.screenshots && project.screenshots.length > 0 && (
+              <div>
+                <h3 className="text-xs uppercase font-mono tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+                  <span className="text-sky-400">📊</span>
+                  <span>Verified Project Screenshots & Dashboards</span>
+                </h3>
+                <div className="space-y-4">
+                  {project.screenshots.map((shot, idx) => (
+                    <div key={idx} className="rounded-xl overflow-hidden border border-slate-700/80 bg-slate-950 shadow-lg">
+                      <img
+                        src={shot.url}
+                        alt={shot.caption}
+                        className="w-full h-auto object-contain max-h-96 mx-auto"
+                        loading="lazy"
+                      />
+                      <div className="p-2.5 bg-slate-900/90 border-t border-slate-800 text-xs font-mono text-sky-300">
+                        {shot.caption}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* My Actual Contributions */}
             <div>
               <h3 className="text-xs uppercase font-mono tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
