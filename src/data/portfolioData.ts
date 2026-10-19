@@ -68,30 +68,35 @@ export const portfolioConfig = {
   },
   
   about: {
-    overview: "I am a Software Engineer Intern with hands-on experience building AI-assisted software applications, automation workflows, APIs, dashboards, and employee productivity systems. Experienced with Python, FastAPI, Django, React, Next.js, PostgreSQL, REST APIs, SQL, Power BI, and modern AI-assisted development workflows.",
-    focusAreas: [
+    headline: "Software Engineer & Data Analytics Professional",
+    overview: "I build AI-assisted software applications, automation workflows, APIs, dashboards, and data-driven solutions. My experience spans Python, FastAPI, Django, React, Next.js, PostgreSQL, SQL, Power BI, Excel, data visualization, KPI tracking, and business reporting.",
+    careerAreas: [
       {
-        title: "Data Analytics & Dashboards",
-        description: "Transforming complex datasets into actionable executive insights with Power BI, advanced DAX modeling, SQL queries, and Python data visualization."
+        title: "Software Engineering",
+        description: "Building production-grade backend APIs, interactive web interfaces, and automated workflows with clean architecture and strict security.",
+        skills: [
+          "Python, FastAPI, Django",
+          "React, Next.js, REST APIs",
+          "PostgreSQL and database integration",
+          "AI-assisted development and workflow automation"
+        ]
       },
       {
-        title: "AI-Assisted Engineering",
-        description: "Integrating LLM capabilities, prompt orchestration, and intelligent APIs to accelerate real-world developer and recruiter workflows."
-      },
-      {
-        title: "Robust Backend & APIs",
-        description: "Designing RESTful endpoints with FastAPI & Django, implementing JWT/session authentication, strict RBAC, and error-resilient database transactions."
-      },
-      {
-        title: "Desktop Telemetry & Sync",
-        description: "Developing cross-platform desktop monitoring applications in PySide6 with offline-first SQLite caching and dynamic batch synchronization."
+        title: "Data Analytics & Business Intelligence",
+        description: "Transforming raw data into strategic business intelligence, dynamic interactive dashboards, and actionable executive insights.",
+        skills: [
+          "SQL, Python, Pandas, NumPy",
+          "Power BI and Excel",
+          "Data cleaning, analysis, and visualization",
+          "KPI dashboards, reporting, and business insights"
+        ]
       }
     ],
     verifiedFacts: [
-      { label: "Engineering Degree", value: "B.Tech CSE" },
-      { label: "Production & Live Apps", value: "3+ Core Systems" },
-      { label: "Professional Internships", value: "4 Completed/Ongoing" },
-      { label: "Verified Repositories", value: "8+ on GitHub" }
+      { label: "Primary Degree", value: "B.Tech CSE" },
+      { label: "Software Track", value: "Full-Stack & APIs" },
+      { label: "Analytics Track", value: "Power BI & SQL" },
+      { label: "Automation Track", value: "AI & Workflows" }
     ]
   },
 
