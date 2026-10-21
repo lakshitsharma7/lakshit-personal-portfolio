@@ -157,19 +157,16 @@ The portfolio includes a lightweight, privacy-focused dual-analytics integration
 2. **Microsoft Clarity**:
    - Create a free project at [Microsoft Clarity](https://clarity.microsoft.com/).
    - Under **Settings > Overview**, copy your **Project ID**.
-3. **Local Testing**:
-   - In your `.env` file:
+3. **Configuration & Secrets**:
+   - Environment variables configured:
      ```env
-     VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
-     VITE_CLARITY_PROJECT_ID=XXXXXXXXXX
+     VITE_GA_MEASUREMENT_ID=G-G6SLSQJHM8
+     VITE_CLARITY_PROJECT_ID=z1456cvrem
      ```
-   - When running locally without IDs (`npm run dev`), events are cleanly logged to the browser console for testing.
-4. **GitHub Pages Deployment**:
-   - In your GitHub repository: go to **Settings > Secrets and variables > Actions**.
-   - Under **Repository secrets** (or **Variables**), add:
-     - `VITE_GA_MEASUREMENT_ID`
-     - `VITE_CLARITY_PROJECT_ID`
-   - Future pushes to `main` will automatically bake these variables into the production build!
+   - Automatically injected during GitHub Actions CI/CD workflows from encrypted repository secrets.
+4. **Verified Live Deployments**:
+   - Primary URL: [https://lakshitsharma7.github.io/](https://lakshitsharma7.github.io/)
+   - Portfolio Mirror: [https://lakshitsharma7.github.io/lakshit-personal-portfolio/](https://lakshitsharma7.github.io/lakshit-personal-portfolio/)
 
 ---
 
