@@ -1,6 +1,6 @@
 # Lakshit Sharma — Personal Portfolio Website
 
-A modern, fast, recruiter-focused personal portfolio website engineered for **Lakshit Sharma** (AI-Assisted Software Engineer & Full-Stack Developer).
+A modern, fast, recruiter-focused personal portfolio website engineered for **Lakshit Sharma** (Software Engineer & Full-Stack Developer).
 
 Built with **React 18**, **TypeScript**, **Vite**, and **Tailwind CSS**. Designed with rich dark aesthetics, restrained electric blue/indigo accents, smooth micro-interactions, and verified career data sourced directly from Lakshit's official resume and GitHub repositories.
 
@@ -9,7 +9,7 @@ Built with **React 18**, **TypeScript**, **Vite**, and **Tailwind CSS**. Designe
 ## 🌟 Key Features
 
 - **Personal Branding & Positioning**:
-  - Clear, authentic identity: **AI-Assisted Software Engineer | Python, APIs & Automation**.
+  - Clear, authentic identity: **Software Engineer | Python, APIs & Automation**.
   - Custom initials-based avatar badge with geometric gradient halos.
   - Zero fabricated claims, fake testimonials, or placeholder metrics.
 - **Deep Technical Case Studies**:
@@ -134,6 +134,42 @@ public/Lakshit_Sharma_Resume.pdf
    })
    ```
 2. Build and push the `dist/` directory to the `gh-pages` branch.
+
+---
+
+## 📊 Private Visitor Analytics (Google Analytics 4 + Microsoft Clarity)
+
+The portfolio includes a lightweight, privacy-focused dual-analytics integration:
+- **Google Analytics 4 (GA4)**: Anonymous traffic statistics, country distribution, device types, traffic sources, page views, and custom interaction events.
+- **Microsoft Clarity**: Free heatmaps and session recordings to see how visitors explore projects and navigate the portfolio.
+
+**Privacy Guarantee:**
+- Dashboards remain **100% private** to you via your authenticated Google Analytics and Microsoft Clarity accounts.
+- Zero public visitor counters or tracking badges are visible on the website.
+- Zero PII (Personally Identifiable Information) is captured — contact form message contents, sender names, and email addresses are never recorded.
+- If ad-blockers block analytics or if IDs are omitted, the website continues to function flawlessly without errors.
+
+### Setup Instructions:
+
+1. **Google Analytics 4**:
+   - Create a free property at [Google Analytics](https://analytics.google.com/).
+   - Under **Admin > Data Streams > Web**, copy your **Measurement ID** (format: `G-XXXXXXXXXX`).
+2. **Microsoft Clarity**:
+   - Create a free project at [Microsoft Clarity](https://clarity.microsoft.com/).
+   - Under **Settings > Overview**, copy your **Project ID**.
+3. **Local Testing**:
+   - In your `.env` file:
+     ```env
+     VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+     VITE_CLARITY_PROJECT_ID=XXXXXXXXXX
+     ```
+   - When running locally without IDs (`npm run dev`), events are cleanly logged to the browser console for testing.
+4. **GitHub Pages Deployment**:
+   - In your GitHub repository: go to **Settings > Secrets and variables > Actions**.
+   - Under **Repository secrets** (or **Variables**), add:
+     - `VITE_GA_MEASUREMENT_ID`
+     - `VITE_CLARITY_PROJECT_ID`
+   - Future pushes to `main` will automatically bake these variables into the production build!
 
 ---
 

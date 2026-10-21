@@ -10,9 +10,20 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
 import { AIAssistant } from './components/AIAssistant/AIAssistant';
+import { initAnalytics, trackSectionTransition } from './utils/analytics';
 
 export function App() {
   const [activeSection, setActiveSection] = useState('hero');
+
+  // Initialize GA4 and Microsoft Clarity asynchronously on mount
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  // Track section views as active section changes
+  useEffect(() => {
+    trackSectionTransition(activeSection);
+  }, [activeSection]);
 
   useEffect(() => {
     const sectionIds = ['hero', 'about', 'skills', 'projects', 'experience', 'education', 'contact'];

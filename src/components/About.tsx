@@ -1,6 +1,7 @@
 import React from 'react';
 import { portfolioConfig } from '../data/portfolioData';
 import { Code2, BarChart3, GraduationCap, CheckCircle2, Terminal, Database } from 'lucide-react';
+import { trackEvent, ANALYTICS_EVENTS } from '../utils/analytics';
 
 export const About: React.FC = () => {
   const { about } = portfolioConfig;
@@ -84,7 +85,7 @@ export const About: React.FC = () => {
               <div>
                 <span className="text-[11px] font-mono uppercase tracking-wider text-indigo-400">Core Profile</span>
                 <h3 className="text-xl font-bold text-white tracking-tight">
-                  Data Analytics & Business Intelligence
+                  Data Analytics & Automation
                 </h3>
               </div>
             </div>
@@ -118,7 +119,7 @@ export const About: React.FC = () => {
             </div>
             <div>
               <h3 className="text-lg font-bold text-white">
-                Krishna Engineering College • B.Tech in Computer Science & Engineering (2021 – 2025)
+                Krishna Engineering College, AKTU • B.Tech in Computer Science & Engineering (2021 – 2025)
               </h3>
               <p className="text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
                 Combined academic foundations in software architecture, database management systems, and algorithms with hands-on internship projects in software engineering and data analytics.
@@ -127,6 +128,7 @@ export const About: React.FC = () => {
           </div>
           <a
             href="#projects"
+            onClick={() => trackEvent(ANALYTICS_EVENTS.NAV_CLICK, { section: 'Projects', source: 'about_cta' })}
             className="whitespace-nowrap px-4 py-2.5 rounded-lg text-xs font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
           >
             Explore Projects & Dashboards →

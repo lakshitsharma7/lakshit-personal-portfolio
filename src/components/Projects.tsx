@@ -4,16 +4,17 @@ import type { ProjectCaseStudy } from '../data/portfolioData';
 import { ProjectModal } from './ProjectModal';
 import { ArrowUpRight, FolderGit2, Cpu, BarChart3, Smartphone, ExternalLink } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
+import { trackEvent, ANALYTICS_EVENTS } from '../utils/analytics';
 
 export const Projects: React.FC = () => {
   const { projects } = portfolioConfig;
-  const [activeTab, setActiveTab] = useState<'All' | 'AI & Engineering' | 'Data Analytics' | 'Mobile & Web'>('All');
+  const [activeTab, setActiveTab] = useState<'All' | 'AI & Engineering' | 'Data Analytics'>('All');
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
 
   useEffect(() => {
     const handleFilterEvent = (e: Event) => {
       const customEvent = e as CustomEvent<string>;
-      if (customEvent.detail && ['All', 'AI & Engineering', 'Data Analytics', 'Mobile & Web'].includes(customEvent.detail)) {
+      if (customEvent.detail && ['All', 'AI & Engineering', 'Data Analytics'].includes(customEvent.detail)) {
         setActiveTab(customEvent.detail as any);
       }
     };
@@ -72,10 +73,13 @@ export const Projects: React.FC = () => {
 
           {/* Category Tabs */}
           <div className="flex items-center gap-1.5 flex-wrap bg-slate-900/80 p-1.5 rounded-xl border border-slate-800">
-            {(['All', 'AI & Engineering', 'Data Analytics', 'Mobile & Web'] as const).map((tab) => (
+            {(['All', 'AI & Engineering', 'Data Analytics'] as const).map((tab) => (
               <button
                 key={tab}
-                onClick={() => setActiveTab(tab)}
+                onClick={() => {
+                  setActiveTab(tab);
+                  trackEvent(ANALYTICS_EVENTS.PROJECT_TAB_FILTER, { category: tab });
+                }}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
                   activeTab === tab
                     ? 'bg-gradient-to-r from-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/20'
@@ -160,7 +164,10 @@ export const Projects: React.FC = () => {
               <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
                 <button
                   type="button"
-                  onClick={() => setSelectedProject(project)}
+                  onClick={() => {
+                    setSelectedProject(project);
+                    trackEvent(ANALYTICS_EVENTS.PROJECT_VIEW, { project_id: project.id, title: project.title });
+                  }}
                   className="inline-flex items-center gap-1 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-colors"
                 >
                   <span>View Case Study</span>
@@ -173,6 +180,7 @@ export const Projects: React.FC = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackEvent(ANALYTICS_EVENTS.PROJECT_GITHUB_CLICK, { project_id: project.id, title: project.title, location: 'project_card' })}
                       className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-colors"
                       title="View GitHub Repository"
                       aria-label={`${project.title} GitHub Repository`}
@@ -185,6 +193,7 @@ export const Projects: React.FC = () => {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackEvent(ANALYTICS_EVENTS.PROJECT_DEMO_CLICK, { project_id: project.id, title: project.title, location: 'project_card' })}
                       className="p-1.5 rounded-lg text-slate-400 hover:text-sky-400 hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-colors"
                       title="Live Demo"
                       aria-label={`${project.title} Live Demo`}

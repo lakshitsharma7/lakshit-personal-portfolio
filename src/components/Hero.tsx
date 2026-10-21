@@ -11,6 +11,7 @@ import {
   ExternalLink 
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, WhatsAppIcon } from './SocialIcons';
+import { trackEvent, ANALYTICS_EVENTS } from '../utils/analytics';
 
 export const Hero: React.FC = () => {
   const { personal } = portfolioConfig;
@@ -51,21 +52,21 @@ export const Hero: React.FC = () => {
 
             {/* Role / Headline */}
             <h2 className="text-xl sm:text-2xl font-semibold text-slate-300 mb-6 flex flex-wrap items-center justify-center lg:justify-start gap-2">
-              <span>AI-Assisted Software Engineer</span>
+              <span>Software Engineer</span>
               <span className="text-sky-500 hidden sm:inline">•</span>
-              <span className="text-slate-400">Python, APIs & Automation</span>
+              <span className="text-slate-400">AI | GenAI | Python | FastAPI | Django | React | Automation</span>
             </h2>
 
             {/* Professional Verified Summary */}
             <p className="text-base sm:text-lg text-slate-300/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-8">
-              {personal.positioning} Currently developing production-grade applications involving 
-              API engineering, RBAC authentication, cross-platform desktop telemetry, and intelligent workflow automation.
+              {personal.positioning} {personal.shortBio}
             </p>
 
             {/* Hero Action Buttons */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10">
               <a
                 href="#projects"
+                onClick={() => trackEvent(ANALYTICS_EVENTS.NAV_CLICK, { section: 'Projects', source: 'hero_cta' })}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/35 transition-all duration-200 hover:-translate-y-0.5"
               >
                 <span>View My Projects</span>
@@ -75,6 +76,7 @@ export const Hero: React.FC = () => {
               <a
                 href={personal.resumeDownloadPath}
                 download="Lakshit_Sharma_Resume.pdf"
+                onClick={() => trackEvent(ANALYTICS_EVENTS.RESUME_DOWNLOAD, { location: 'hero_cta' })}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-slate-200 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 hover:border-slate-600 transition-all duration-200 hover:-translate-y-0.5"
               >
                 <FileDown className="w-4 h-4 text-sky-400" />
@@ -92,6 +94,7 @@ export const Hero: React.FC = () => {
                   href={personal.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent(ANALYTICS_EVENTS.GITHUB_CLICK, { location: 'hero' })}
                   className="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition-colors"
                   aria-label="GitHub Profile"
                   title="GitHub: github.com/lakshitsharma7"
@@ -103,6 +106,7 @@ export const Hero: React.FC = () => {
                   href={personal.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent(ANALYTICS_EVENTS.LINKEDIN_CLICK, { location: 'hero' })}
                   className="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-sky-400 border border-slate-800 hover:border-slate-700 transition-colors"
                   aria-label="LinkedIn Profile"
                   title="LinkedIn Profile"
@@ -114,6 +118,7 @@ export const Hero: React.FC = () => {
                   href={personal.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent(ANALYTICS_EVENTS.WHATSAPP_CLICK, { location: 'hero' })}
                   className="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-emerald-400 border border-slate-800 hover:border-slate-700 transition-colors"
                   aria-label="WhatsApp Chat"
                   title="Direct WhatsApp Chat"
@@ -123,6 +128,7 @@ export const Hero: React.FC = () => {
 
                 <a
                   href={`mailto:${personal.email}`}
+                  onClick={() => trackEvent(ANALYTICS_EVENTS.EMAIL_CLICK, { location: 'hero' })}
                   className="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-indigo-400 border border-slate-800 hover:border-slate-700 transition-colors"
                   aria-label="Send Email"
                   title={`Email: ${personal.email}`}
@@ -134,6 +140,7 @@ export const Hero: React.FC = () => {
                   href={personal.naukriUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent(ANALYTICS_EVENTS.NAUKRI_CLICK, { location: 'hero' })}
                   className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-sky-300 text-xs font-medium border border-slate-800 hover:border-slate-700 transition-colors"
                   aria-label="Naukri Profile"
                   title="Naukri Candidate Profile"
@@ -190,14 +197,21 @@ export const Hero: React.FC = () => {
                       <Briefcase className="w-3.5 h-3.5 text-indigo-400" />
                       Frontend & UI
                     </span>
-                    <span className="font-mono text-slate-200">React.js • Next.js • Tailwind</span>
+                    <span className="font-mono text-slate-200">React.js • Next.js</span>
                   </div>
                   <div className="flex items-center justify-between text-slate-300">
                     <span className="flex items-center gap-1.5 text-slate-400">
                       <span className="text-violet-400 font-bold">⚡</span>
                       Desktop & AI
                     </span>
-                    <span className="font-mono text-slate-200">PySide6 • LLMs • n8n</span>
+                    <span className="font-mono text-slate-200">PySide6 • GenAI • n8n</span>
+                  </div>
+                  <div className="flex items-center justify-between text-slate-300">
+                    <span className="flex items-center gap-1.5 text-slate-400">
+                      <span className="text-emerald-400 font-bold">📊</span>
+                      Data & Analytics
+                    </span>
+                    <span className="font-mono text-slate-200">PostgreSQL • SQL • Power BI</span>
                   </div>
                 </div>
               </div>
@@ -210,6 +224,7 @@ export const Hero: React.FC = () => {
         <div className="mt-16 sm:mt-24 flex justify-center">
           <a
             href="#about"
+            onClick={() => trackEvent(ANALYTICS_EVENTS.NAV_CLICK, { section: 'About', source: 'hero_scroll_indicator' })}
             className="flex flex-col items-center gap-2 text-slate-400 hover:text-sky-400 transition-colors group"
             aria-label="Scroll to About section"
           >

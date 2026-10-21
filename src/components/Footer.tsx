@@ -2,6 +2,7 @@ import React from 'react';
 import { portfolioConfig } from '../data/portfolioData';
 import { MessageSquare, Mail, FileDown } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
+import { trackEvent, ANALYTICS_EVENTS } from '../utils/analytics';
 
 export const Footer: React.FC = () => {
   const { personal } = portfolioConfig;
@@ -23,19 +24,23 @@ export const Footer: React.FC = () => {
                 {personal.name}
               </span>
               <span className="text-slate-400 text-[11px] font-mono">
-                AI-Assisted Software Engineer
+                Software Engineer
               </span>
             </div>
           </div>
 
           {/* Quick anchor links */}
           <nav className="flex items-center gap-6 flex-wrap justify-center text-xs font-medium">
-            <a href="#about" className="hover:text-white transition-colors">About</a>
-            <a href="#skills" className="hover:text-white transition-colors">Skills</a>
-            <a href="#projects" className="hover:text-white transition-colors">Projects</a>
-            <a href="#experience" className="hover:text-white transition-colors">Experience</a>
-            <a href="#education" className="hover:text-white transition-colors">Education</a>
-            <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+            {(['about', 'skills', 'projects', 'experience', 'education', 'contact'] as const).map((section) => (
+              <a
+                key={section}
+                href={`#${section}`}
+                onClick={() => trackEvent(ANALYTICS_EVENTS.NAV_CLICK, { destination: section, location: 'footer' })}
+                className="hover:text-white capitalize transition-colors"
+              >
+                {section}
+              </a>
+            ))}
           </nav>
 
           {/* Socials */}
@@ -44,6 +49,7 @@ export const Footer: React.FC = () => {
               href={personal.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent(ANALYTICS_EVENTS.GITHUB_CLICK, { location: 'footer' })}
               className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
               aria-label="GitHub"
             >
@@ -53,6 +59,7 @@ export const Footer: React.FC = () => {
               href={personal.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent(ANALYTICS_EVENTS.LINKEDIN_CLICK, { location: 'footer' })}
               className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 transition-colors"
               aria-label="LinkedIn"
             >
@@ -62,6 +69,7 @@ export const Footer: React.FC = () => {
               href={personal.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent(ANALYTICS_EVENTS.WHATSAPP_CLICK, { location: 'footer' })}
               className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-emerald-400 transition-colors"
               aria-label="WhatsApp"
             >
@@ -69,6 +77,7 @@ export const Footer: React.FC = () => {
             </a>
             <a
               href={`mailto:${personal.email}`}
+              onClick={() => trackEvent(ANALYTICS_EVENTS.EMAIL_CLICK, { location: 'footer' })}
               className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-indigo-400 transition-colors"
               aria-label="Email"
             >
@@ -77,6 +86,7 @@ export const Footer: React.FC = () => {
             <a
               href={personal.resumeDownloadPath}
               download="Lakshit_Sharma_Resume.pdf"
+              onClick={() => trackEvent(ANALYTICS_EVENTS.RESUME_DOWNLOAD, { location: 'footer' })}
               className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-sky-400 transition-colors"
               aria-label="Download Resume"
               title="Download Resume"

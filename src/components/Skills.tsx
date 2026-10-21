@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { portfolioConfig } from '../data/portfolioData';
 import { Code2, Server, Layout, Sparkles, Database, Wrench } from 'lucide-react';
+import { trackEvent, ANALYTICS_EVENTS } from '../utils/analytics';
 
 export const Skills: React.FC = () => {
   const { categories } = portfolioConfig.skills;
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
   const categoryIcons: Record<string, React.ReactNode> = {
-    "Programming & Scripting": <Code2 className="w-5 h-5 text-sky-400" />,
-    "Backend & API Engineering": <Server className="w-5 h-5 text-indigo-400" />,
-    "Frontend & Web Development": <Layout className="w-5 h-5 text-violet-400" />,
-    "AI, GenAI & Automation": <Sparkles className="w-5 h-5 text-amber-400" />,
+    "Programming": <Code2 className="w-5 h-5 text-sky-400" />,
+    "Backend & APIs": <Server className="w-5 h-5 text-indigo-400" />,
+    "Frontend": <Layout className="w-5 h-5 text-violet-400" />,
     "Databases & Data Analytics": <Database className="w-5 h-5 text-emerald-400" />,
-    "Desktop, DevOps & Tools": <Wrench className="w-5 h-5 text-pink-400" />
+    "AI, GenAI & Automation": <Sparkles className="w-5 h-5 text-amber-400" />,
+    "Desktop & Engineering Tools": <Wrench className="w-5 h-5 text-pink-400" />
   };
 
   const filteredCategories = selectedCategory === 'All'
@@ -40,7 +41,10 @@ export const Skills: React.FC = () => {
           {/* Category Filter Chips */}
           <div className="flex items-center gap-1.5 flex-wrap">
             <button
-              onClick={() => setSelectedCategory('All')}
+              onClick={() => {
+                setSelectedCategory('All');
+                trackEvent(ANALYTICS_EVENTS.SKILL_CATEGORY_FILTER, { category: 'All' });
+              }}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 selectedCategory === 'All'
                   ? 'bg-sky-500 text-white shadow-md shadow-sky-500/20'
@@ -52,14 +56,17 @@ export const Skills: React.FC = () => {
             {categories.map((c) => (
               <button
                 key={c.name}
-                onClick={() => setSelectedCategory(c.name)}
+                onClick={() => {
+                  setSelectedCategory(c.name);
+                  trackEvent(ANALYTICS_EVENTS.SKILL_CATEGORY_FILTER, { category: c.name });
+                }}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   selectedCategory === c.name
                     ? 'bg-sky-500 text-white shadow-md shadow-sky-500/20'
                     : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
                 }`}
               >
-                {c.name.split(' ')[0]}
+                {c.name}
               </button>
             ))}
           </div>

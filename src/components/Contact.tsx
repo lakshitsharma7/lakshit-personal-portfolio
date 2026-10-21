@@ -11,6 +11,7 @@ import {
   ExternalLink 
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
+import { trackEvent, ANALYTICS_EVENTS } from '../utils/analytics';
 
 export const Contact: React.FC = () => {
   const { personal } = portfolioConfig;
@@ -25,11 +26,22 @@ export const Contact: React.FC = () => {
   const copyToClipboard = (text: string, fieldName: string) => {
     navigator.clipboard.writeText(text);
     setCopiedField(fieldName);
+    if (fieldName === 'email') {
+      trackEvent(ANALYTICS_EVENTS.COPY_EMAIL);
+    } else if (fieldName === 'phone') {
+      trackEvent(ANALYTICS_EVENTS.COPY_PHONE);
+    }
     setTimeout(() => setCopiedField(null), 2500);
   };
 
   const handleComposeEmail = (e: React.FormEvent) => {
     e.preventDefault();
+    // Track anonymous form initiation event without recording any PII (no name, email, or message body)
+    trackEvent(ANALYTICS_EVENTS.CONTACT_SUBMIT, {
+      hasSubject: Boolean(subject),
+      messageLengthTier: message.length < 50 ? 'short' : message.length < 200 ? 'medium' : 'long',
+    });
+
     const encodedSubject = encodeURIComponent(subject || `Inquiry from ${senderName || 'Portfolio Visitor'}`);
     const encodedBody = encodeURIComponent(
       `Hi Lakshit,\n\n${message}\n\nFrom:\n${senderName || 'Anonymous'}\nEmail: ${senderEmail || 'Not provided'}`
@@ -69,6 +81,7 @@ export const Contact: React.FC = () => {
                   <div className="text-xs font-mono text-slate-400">Email Address</div>
                   <a
                     href={`mailto:${personal.email}`}
+                    onClick={() => trackEvent(ANALYTICS_EVENTS.EMAIL_CLICK, { location: 'contact_section' })}
                     className="text-sm font-semibold text-white hover:text-sky-400 transition-colors"
                   >
                     {personal.email}
@@ -98,6 +111,7 @@ export const Contact: React.FC = () => {
                     href={personal.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackEvent(ANALYTICS_EVENTS.WHATSAPP_CLICK, { location: 'contact_section' })}
                     className="text-sm font-semibold text-white hover:text-emerald-400 transition-colors"
                   >
                     {personal.phone}
@@ -118,6 +132,7 @@ export const Contact: React.FC = () => {
                   href={personal.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent(ANALYTICS_EVENTS.WHATSAPP_CLICK, { location: 'contact_chat_button' })}
                   className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition-colors"
                 >
                   Chat
@@ -136,6 +151,7 @@ export const Contact: React.FC = () => {
                 href={personal.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent(ANALYTICS_EVENTS.LINKEDIN_CLICK, { location: 'contact_section' })}
                 className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all text-xs font-medium text-slate-200"
               >
                 <span className="flex items-center gap-2">
@@ -150,6 +166,7 @@ export const Contact: React.FC = () => {
                 href={personal.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent(ANALYTICS_EVENTS.GITHUB_CLICK, { location: 'contact_section' })}
                 className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all text-xs font-medium text-slate-200"
               >
                 <span className="flex items-center gap-2">
@@ -164,6 +181,7 @@ export const Contact: React.FC = () => {
                 href={personal.naukriUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent(ANALYTICS_EVENTS.NAUKRI_CLICK, { location: 'contact_section' })}
                 className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all text-xs font-medium text-slate-200"
               >
                 <span className="flex items-center gap-2">
@@ -177,6 +195,7 @@ export const Contact: React.FC = () => {
               <a
                 href={personal.resumeDownloadPath}
                 download="Lakshit_Sharma_Resume.pdf"
+                onClick={() => trackEvent(ANALYTICS_EVENTS.RESUME_DOWNLOAD, { location: 'contact_section' })}
                 className="flex items-center justify-between p-2.5 rounded-lg bg-gradient-to-r from-sky-500/20 to-indigo-600/20 hover:from-sky-500/30 hover:to-indigo-600/30 border border-sky-500/30 transition-all text-xs font-semibold text-sky-300"
               >
                 <span className="flex items-center gap-2">

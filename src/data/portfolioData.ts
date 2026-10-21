@@ -54,8 +54,8 @@ export const portfolioConfig = {
   personal: {
     name: "Lakshit Sharma",
     initials: "LS",
-    headline: "AI-Assisted Software Engineer | Data Analytics & Automation",
-    positioning: "Software Engineer specializing in AI-assisted applications, data analytics dashboards, FastAPI & Django backends, React & Next.js interfaces, and cross-platform desktop telemetry systems.",
+    headline: "Software Engineer – AI | GenAI | Python | FastAPI | Django | React | Automation",
+    positioning: "Software Engineer Intern with hands-on experience building AI-assisted software applications, automation workflows, APIs, dashboards, and employee productivity systems.",
     location: "North East Delhi, India",
     email: "lakshitharitash@gmail.com",
     phone: "+91 9910933221",
@@ -64,78 +64,241 @@ export const portfolioConfig = {
     linkedinUrl: "https://www.linkedin.com/in/lakshit-sharma-448949289",
     naukriUrl: "https://www.naukri.com/mnjuser/profile",
     resumeDownloadPath: "/Lakshit_Sharma_Resume.pdf",
-    shortBio: "Hands-on software engineer and data analyst with production experience across API engineering, business analytics dashboards, desktop telemetry, and automated AI pipelines. I focus on reliable architectures, empirical data insights, and pragmatic problem-solving.",
+    shortBio: "Experienced with Python, FastAPI, Django, React, Next.js, PostgreSQL, REST APIs, SQL, and modern AI-assisted development workflows. Currently working on production-oriented applications involving AI integration, API development, authentication, RBAC, activity tracking, system monitoring, automation, and cross-platform desktop applications.",
   },
   
   about: {
-    headline: "Software Engineer & Data Analytics Professional",
-    overview: "I build AI-assisted software applications, automation workflows, APIs, dashboards, and data-driven solutions. My experience spans Python, FastAPI, Django, React, Next.js, PostgreSQL, SQL, Power BI, Excel, data visualization, KPI tracking, and business reporting.",
+    headline: "Software Engineer – AI, APIs, Desktop Telemetry & Data Analytics",
+    overview: "I am a Software Engineer Intern with hands-on experience building AI-assisted software applications, automation workflows, APIs, dashboards, and employee productivity systems. Experienced with Python, FastAPI, Django, React, Next.js, PostgreSQL, REST APIs, SQL, and modern AI-assisted development workflows. Currently working on production applications involving AI integration, API development, authentication, RBAC, activity tracking, system monitoring, and cross-platform desktop applications with a strong interest in Generative AI, AI Agents, and workflow automation.",
     careerAreas: [
       {
-        title: "Software Engineering",
-        description: "Building production-grade backend APIs, interactive web interfaces, and automated workflows with clean architecture and strict security.",
+        title: "Software Engineering & APIs",
+        description: "Building production-grade backend APIs, secure authentication, RBAC workflows, and cross-platform desktop applications (PySide6) with local-first telemetry synchronization.",
         skills: [
-          "Python, FastAPI, Django",
-          "React, Next.js, REST APIs",
-          "PostgreSQL and database integration",
-          "AI-assisted development and workflow automation"
+          "Python, FastAPI, Django & PostgreSQL",
+          "React.js, Next.js, REST APIs & Webhooks",
+          "PySide6 desktop telemetry & application packaging",
+          "Authentication, RBAC & system health monitoring"
         ]
       },
       {
-        title: "Data Analytics & Business Intelligence",
-        description: "Transforming raw data into strategic business intelligence, dynamic interactive dashboards, and actionable executive insights.",
+        title: "Data Analytics & Automation",
+        description: "Extracting operational insights through reproducible data cleaning, SQL analytics, interactive Power BI KPI dashboards, and AI-assisted n8n workflow automation.",
         skills: [
-          "SQL, Python, Pandas, NumPy",
-          "Power BI and Excel",
-          "Data cleaning, analysis, and visualization",
-          "KPI dashboards, reporting, and business insights"
+          "SQL, Python, Pandas & NumPy",
+          "Power BI, KPI dashboards & business reporting",
+          "Data cleaning, transformation & visualization",
+          "n8n workflow automation & AI model integration"
         ]
       }
     ],
     verifiedFacts: [
-      { label: "Primary Degree", value: "B.Tech CSE" },
-      { label: "Software Track", value: "Full-Stack & APIs" },
-      { label: "Analytics Track", value: "Power BI & SQL" },
-      { label: "Automation Track", value: "AI & Workflows" }
+      { label: "Degree", value: "B.Tech CSE" },
+      { label: "University", value: "AKTU (2021–2025)" },
+      { label: "Current Role", value: "SWE Intern @ Indovision" },
+      { label: "Analytics Role", value: "Data Analytics Intern @ Nexen Bloom" }
     ]
   },
 
   skills: {
     categories: [
       {
-        name: "Data Analytics & Business Intelligence",
-        skills: ["Power BI", "DAX Measures", "Data Cleaning", "KPI Reporting", "Pandas", "NumPy", "SQL Analytics", "Seaborn / Matplotlib", "Excel Pivot & Power Query"]
+        name: "Programming",
+        skills: ["Python", "JavaScript", "SQL", "HTML", "CSS"]
       },
       {
-        name: "Programming & Scripting",
-        skills: ["Python", "JavaScript", "SQL", "HTML5", "CSS3", "TypeScript Basics"]
+        name: "Backend & APIs",
+        skills: ["FastAPI", "Django", "REST APIs", "API Integration", "Webhooks", "JSON"]
       },
       {
-        name: "Backend & API Engineering",
-        skills: ["FastAPI", "Django", "REST APIs", "API Integration", "Webhooks", "JSON Serialization", "RBAC", "Authentication"]
+        name: "Frontend",
+        skills: ["React.js", "Next.js"]
       },
       {
-        name: "Frontend & Web Development",
-        skills: ["React.js", "Next.js", "Vite", "Tailwind CSS", "Responsive UI", "State Management"]
+        name: "Databases & Data Analytics",
+        skills: ["PostgreSQL", "SQL", "Pandas", "NumPy", "Power BI", "Data Cleaning", "Data Visualization", "KPI Dashboards", "Reporting"]
       },
       {
         name: "AI, GenAI & Automation",
-        skills: ["Generative AI", "AI-Assisted Development", "AI APIs", "Prompt Engineering", "AI Agents", "LLM Integration", "n8n Workflows"]
+        skills: ["Generative AI", "AI-assisted Development", "AI APIs", "Prompt Engineering", "AI Agents", "LLM Integration", "n8n", "Workflow Automation", "API Automation", "Webhooks"]
       },
       {
-        name: "Desktop, DevOps & Tools",
-        skills: ["PySide6", "PyInstaller (EXE/DMG)", "Jenkins CI/CD", "Git & GitHub", "Postman", "VS Code", "Figma"]
+        name: "Desktop & Engineering Tools",
+        skills: ["PySide6", "Windows Desktop Applications", "macOS Applications", "Git", "GitHub", "VS Code", "Figma", "Postman", "PyInstaller", "Excel", "Authentication", "RBAC", "Error Handling", "Logging", "Version Management", "Testing", "Debugging", "Deployment"]
       }
     ]
   },
 
   projects: [
     {
+      id: "workpulse",
+      title: "Workpulse – AI-Assisted Employee Productivity Platform",
+      tagline: "Cross-platform desktop application for employee activity tracking with local-first telemetry, idle detection, and API-driven synchronization.",
+      category: "AI & Engineering",
+      techStack: ["Python", "PySide6", "REST APIs", "PostgreSQL", "Windows", "macOS", "PyInstaller"],
+      role: "Software Engineer Intern (Indovision Services)",
+      githubUrl: "https://github.com/lakshitsharma7/ihrmsMonitor",
+      statusBadge: "Production Desktop Tool",
+      overview: "Workpulse is a lightweight cross-platform desktop application designed to track employee activity sessions, active and idle time calculation, system-health collection, and periodic screenshot capture with reliable local-first backend synchronization.",
+      problemStatement: "Distributed and hybrid workplaces require reliable, non-intrusive productivity telemetry that preserves workstation responsiveness, survives unpredictable network dropouts, and securely synchronizes data to backend databases.",
+      keyContributions: [
+        "Developed a cross-platform desktop productivity monitoring application for employee activity tracking.",
+        "Implemented application/session tracking, active and idle time calculation, screenshots and system-health monitoring.",
+        "Built local-first activity processing with backend synchronization and configurable batch uploads.",
+        "Integrated device enrollment, dynamic device tokens, authentication and API-driven configuration.",
+        "Implemented automatic startup, tracking-resume and application update/version-management workflows."
+      ],
+      architecturePoints: [
+        "PySide6 Multi-Threading: Dedicated background worker thread continuously monitors system hooks, activity timestamps, and idle intervals without UI freeze.",
+        "Local-First Queuing: Stores activity events locally during network loss, draining records in configurable batch uploads upon reconnection.",
+        "Device Authentication & RBAC: Validates device hardware signatures, dynamic access tokens, and role-governed tracking policies."
+      ],
+      challengesAndSolutions: [
+        {
+          challenge: "Preventing high CPU utilization and interface freezing during periodic screenshot capture and compression.",
+          solution: "Decoupled screenshot capture into an isolated QThread and implemented debounced image compression before disk staging."
+        },
+        {
+          challenge: "Ensuring zero telemetry data loss during system sleep or network switches.",
+          solution: "Implemented transactional persistent queuing with batch upload status handling and exponential retry backoff."
+        }
+      ],
+      outcomesAndImpact: [
+        "Packaged and distributed native desktop installers for Windows (.exe) and macOS (.dmg) using PyInstaller.",
+        "Successfully deployed in production employee monitoring and activity verification workflows.",
+        "Maintained zero data loss across simulated network interruptions."
+      ]
+    },
+    {
+      id: "ta-ats",
+      title: "TA-ATS – AI-Powered Talent Acquisition Platform",
+      tagline: "Modern recruitment management system featuring 5-tier role-based access control, AI-assisted parsing, and dynamic requisition pipelines.",
+      category: "AI & Engineering",
+      techStack: ["Next.js", "React", "FastAPI", "Django", "PostgreSQL", "AI", "MCP", "Tailwind CSS"],
+      role: "Full-Stack Software Engineer",
+      githubUrl: "https://github.com/lakshitsharma7/ATS-MINI",
+      isPrototypeOrDemo: false,
+      statusBadge: "Full-Stack Web App",
+      overview: "TA-ATS is an intelligent recruitment workflow platform built to automate candidate profile extraction, streamline resume evaluation, and manage role-based requisition state lifecycles.",
+      problemStatement: "Hiring teams face bottlenecks and confusion when job requisitions and candidate feedback move between recruiters, hiring managers, and administrators without strict state tracking or automated candidate screening.",
+      keyContributions: [
+        "Developed an Applicant Tracking System for recruitment workflows and candidate information management.",
+        "Built frontend modules using Next.js, React and Tailwind CSS and backend services using Django and FastAPI.",
+        "Implemented role-based access workflows for recruiters, candidates, hiring managers, project managers and administrators.",
+        "Developed recruitment workflow states including Draft → Pending Approval → Approved → Published.",
+        "Integrated AI-assisted functionality and dynamic API-driven dashboard workflows."
+      ],
+      architecturePoints: [
+        "Hybrid Microservice Backend: High-performance FastAPI service dedicated to AI candidate evaluation and parsing alongside Django for relational data integrity.",
+        "5-Tier RBAC Architecture: Strict permission controls separating recruiters, candidates, hiring managers, project managers, and administrators.",
+        "Finite State Engine: Enforces formal requisition workflow transitions: Draft → Pending Approval → Approved → Published."
+      ],
+      challengesAndSolutions: [
+        {
+          challenge: "Accurately extracting structured candidate data from unstructured, multi-format resume documents.",
+          solution: "Implemented AI-assisted prompt extraction pipelines with defensive JSON schema validation and confidence checks."
+        },
+        {
+          challenge: "Preventing unauthorized job publication or state tampering across different team roles.",
+          solution: "Engineered centralized backend state validators that reject invalid transitions and record full audit logs."
+        }
+      ],
+      outcomesAndImpact: [
+        "Accelerated candidate review cycles with standardized summary cards and automated scoring.",
+        "Delivered intuitive, role-specific dashboard views for recruiting teams and hiring managers."
+      ]
+    },
+    {
+      id: "ai-automation",
+      title: "AI Automation & Workflow Projects",
+      tagline: "Intelligent workflow orchestration connecting APIs, webhooks, AI models, and business applications using n8n and Python.",
+      category: "AI & Engineering",
+      techStack: ["n8n", "REST APIs", "Webhooks", "AI APIs", "Python", "JSON", "AI Agents"],
+      role: "Automation & AI Engineer",
+      githubUrl: "https://github.com/lakshitsharma7",
+      statusBadge: "AI Workflow Automation",
+      overview: "A series of automated workflow pipelines built using n8n and Python to orchestrate asynchronous tasks, integrate REST APIs and webhooks, and execute AI agent reasoning for business operations.",
+      problemStatement: "Organizations waste manual engineering hours on repetitive data entry, disparate API integrations, and uncoordinated webhook notifications across SaaS platforms.",
+      keyContributions: [
+        "Build AI-assisted automation workflows connecting APIs, webhooks and business applications.",
+        "Explore AI agents, API integrations, workflow orchestration, JSON processing and AI model integrations using n8n.",
+        "Implemented automated event routing, JSON data transformation, and conditional decision branching.",
+        "Integrated AI model nodes for automated text classification, sentiment extraction, and intelligent response drafting."
+      ],
+      architecturePoints: [
+        "n8n Visual Orchestration: Flow nodes chaining incoming webhooks, Python scripts, authentication headers, and downstream endpoints.",
+        "Asynchronous JSON Processing: Schema mapping and payload normalization transforming third-party webhook events into standardized relational payloads.",
+        "AI Agent Routing: Multi-prompt reasoning nodes classifying user inquiries and executing deterministic actions."
+      ],
+      challengesAndSolutions: [
+        {
+          challenge: "Managing rate-limiting and payload schema mutations across third-party webhooks.",
+          solution: "Configured intelligent retry buffers, error notification hooks, and flexible JSON mapping schemas in n8n."
+        },
+        {
+          challenge: "Ensuring deterministic responses from generative AI nodes in automated workflows.",
+          solution: "Enforced strict system prompt instructions, temperature controls, and output schema validators."
+        }
+      ],
+      outcomesAndImpact: [
+        "Automated multi-step data pipelines connecting messaging, databases, and reporting systems.",
+        "Eliminated repetitive manual triage workflows through intelligent event-driven automation."
+      ]
+    },
+    {
+      id: "business-data-analysis",
+      title: "Business Data Analysis & KPI Dashboard Project",
+      tagline: "End-to-end business intelligence solution performing data cleaning, SQL aggregations, and interactive Power BI KPI dashboards.",
+      category: "Data Analytics",
+      techStack: ["Python", "Pandas", "NumPy", "SQL", "Power BI", "Excel", "Data Visualization"],
+      role: "Data Analytics Intern (Nexen Bloom)",
+      githubUrl: "https://github.com/lakshitsharma7/ecommerce-business-analytics",
+      statusBadge: "Verified Analytics Project",
+      overview: "An end-to-end business intelligence and data analytics project performing systematic data cleaning, SQL querying, and multi-page Power BI dashboarding to communicate key operational metrics to stakeholders.",
+      problemStatement: "Business leaders and operations teams struggle to identify revenue leakages, product return patterns, and customer demand velocity when data is scattered across unstructured spreadsheets and raw transaction tables.",
+      keyContributions: [
+        "Performed data cleaning, transformation and aggregation on business datasets using Python, Pandas, NumPy and SQL.",
+        "Built Power BI dashboards and reports to visualize KPIs and communicate operational insights.",
+        "Used SQL for data extraction, filtering and analysis to support business reporting.",
+        "Created actionable executive reports facilitating data-driven decision making."
+      ],
+      architecturePoints: [
+        "Data Hygiene Pipeline: Python (Pandas/NumPy) scripts handling null values, outlier filtering, and data type normalization.",
+        "SQL Query Layer: Analytical SQL scripts utilizing Window Functions, Common Table Expressions (CTEs), and Multi-table Joins to compute aggregate metrics.",
+        "Power BI Star Schema: Normalized relational model connecting transaction facts with customer, category, and date dimensions with dynamic DAX measures."
+      ],
+      challengesAndSolutions: [
+        {
+          challenge: "Cleaning unstandardized transaction datasets with missing timestamps and duplicate order IDs.",
+          solution: "Built automated Python data cleaning routines with Pandas data validations and deduplication rules."
+        },
+        {
+          challenge: "Delivering intuitive visual hierarchies without overwhelming executive users.",
+          solution: "Structured multi-page dashboards featuring top-level KPI cards with drill-through capability into category and return analysis."
+        }
+      ],
+      outcomesAndImpact: [
+        "Communicated critical KPIs, sales trends, and category return rates through interactive visual reports.",
+        "Empowered stakeholders with self-service filtering by region, date range, and product line.",
+        "Complete open-source repository with documentation, SQL scripts, and Power BI dashboards on GitHub."
+      ],
+      screenshots: [
+        {
+          url: "/projects/ecommerce/sales_performance.png",
+          caption: "Sales Performance Dashboard — Tracking revenue velocity, order volume, and monthly metrics."
+        },
+        {
+          url: "/projects/ecommerce/product_analytics.png",
+          caption: "Product Analytics & Return Rates — Margin analysis and category performance breakdown."
+        }
+      ]
+    },
+    {
       id: "customer-churn",
       title: "CloudSync — Customer Churn & Retention Analytics",
       tagline: "End-to-end B2B SaaS intelligence platform evaluating $17.04M ARR and 12,000 accounts with Power BI and Scikit-Learn.",
       category: "Data Analytics",
-      techStack: ["Power BI", "DAX", "Python", "SQL", "Pandas", "Scikit-Learn", "PostgreSQL / SQLite"],
+      techStack: ["Power BI", "DAX", "Python", "SQL", "Pandas", "Scikit-Learn", "PostgreSQL"],
       role: "Data Analyst & BI Developer",
       githubUrl: "https://github.com/lakshitsharma7/customer-churn-analytics",
       statusBadge: "Verified Analytics Project",
@@ -177,201 +340,6 @@ export const portfolioConfig = {
           caption: "Churn Drivers & Cohort Matrix — Root cause breakdown by contract type, product tier, and usage velocity."
         }
       ]
-    },
-    {
-      id: "amazon-books",
-      title: "Amazon Best-Selling Books Analysis",
-      tagline: "Exploratory Data Analysis (EDA) uncovering pricing elasticity, review-sales correlations, and genre trends in Python.",
-      category: "Data Analytics",
-      techStack: ["Python", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Jupyter Notebook"],
-      role: "Data Analyst",
-      githubUrl: "https://github.com/lakshitsharma7/amazon-books-analysis",
-      isPrototypeOrDemo: true,
-      statusBadge: "Verified EDA Project",
-      overview: "An end-to-end Python exploratory data analysis project examining consumer purchasing patterns, price-to-review elasticity, and author performance across book titles using a synthetic benchmark dataset.",
-      problemStatement: "Book publishers and digital authors struggle to optimize retail book pricing and predict category sales volume without empirical insight into how ratings, review counts, and formats interact.",
-      keyContributions: [
-        "Engineered an automated data cleaning and deduplication pipeline in Python, handling missing attributes and normalizing text data.",
-        "Conducted univariate, bivariate, and multivariate statistical analyses to explore rating distributions, price elasticity, and review volume.",
-        "Generated 5 publication-ready statistical visualizations exported directly from Matplotlib and Seaborn pipelines.",
-        "Structured a reproducible Jupyter Notebook and modular CLI script (`src/run_analysis.py`) for automated report exports."
-      ],
-      architecturePoints: [
-        "Data Pipeline: Raw synthetic CSV (1,000 records) → Validation & Deduplication → Cleaned dataset (995 unique titles) → Statistical summaries.",
-        "Visualization Suite: Automated generation of top-selling books, genre revenue distribution, review-to-sales correlations, and pricing density plots."
-      ],
-      challengesAndSolutions: [
-        {
-          challenge: "Preventing skewed review distributions from obscuring price elasticity patterns in standard scatter plots.",
-          solution: "Applied log transformation to review counts and segment filtering by genre to extract clearer empirical correlation trends."
-        }
-      ],
-      outcomesAndImpact: [
-        "Discovered that Non-Fiction titles maintained a higher average price point while Fiction titles dominated cumulative review volume.",
-        "Delivered a fully documented GitHub repository with complete charts, analysis notebooks, and structured output reports.",
-        "Transparently documented synthetic dataset scope adhering to ethical data analytics practices."
-      ],
-      screenshots: [
-        {
-          url: "/projects/amazon_books/01_top_10_bestselling_books.png",
-          caption: "Top 10 Best-Selling Titles — Unit sales and author volume distribution."
-        },
-        {
-          url: "/projects/amazon_books/02_genre_sales_analysis.png",
-          caption: "Genre Sales & Revenue Breakdown — Comparative performance across fiction and non-fiction categories."
-        }
-      ]
-    },
-    {
-      id: "ecommerce-analytics",
-      title: "E-Commerce Business Analytics Platform",
-      tagline: "End-to-end analytics platform with SQL CTEs, Python data transformation, and multi-page Power BI KPI dashboards.",
-      category: "Data Analytics",
-      techStack: ["Python", "Pandas", "SQL", "Power BI", "DAX", "MS Excel", "Chart.js"],
-      role: "Data Analyst",
-      githubUrl: "https://github.com/lakshitsharma7/ecommerce-business-analytics",
-      statusBadge: "Verified Analytics Project",
-      overview: "A comprehensive business analytics project analyzing multi-thousand transaction datasets to diagnose sales trends, customer retention, return patterns, and profitability margins across product lines.",
-      problemStatement: "E-commerce retailers struggle to pinpoint product return rates, regional demand variations, and customer lifetime value due to uncleaned relational tables and siloed spreadsheets.",
-      keyContributions: [
-        "Executed data extraction, cleaning, and transformation pipelines using Python (Pandas & NumPy) to handle missing records and outliers.",
-        "Authored complex SQL queries utilizing Window Functions, Common Table Expressions (CTEs), and Multi-table Joins for aggregate metrics.",
-        "Engineered dynamic DAX measures in Power BI for Customer Acquisition Cost (CAC), Average Order Value (AOV), and Net Margin.",
-        "Designed an interactive multi-page Power BI dashboard featuring geographical heatmaps, cohort views, and product category slicers."
-      ],
-      architecturePoints: [
-        "Data pipeline: Raw CSV/SQL extracts → Python automated cleaning → Staged relational tables → Power BI Star Schema data model.",
-        "DAX time-intelligence calculations for Month-over-Month (MoM) and Year-over-Year (YoY) revenue variances."
-      ],
-      challengesAndSolutions: [
-        {
-          challenge: "Resolving performance slowdowns in Power BI when evaluating complex DAX iterators over large transaction tables.",
-          solution: "Restructured the data model into a clean Star Schema with pre-aggregated dimension tables, reducing query latency."
-        }
-      ],
-      outcomesAndImpact: [
-        "Identified top 15% high-return product categories and peak sales velocity timeframes.",
-        "Provided transparent executive-level reporting with drill-through capabilities.",
-        "Real screenshots and dashboard architecture documented on GitHub."
-      ],
-      screenshots: [
-        {
-          url: "/projects/ecommerce/sales_performance.png",
-          caption: "Sales Performance Dashboard — Revenue velocity, order volumes, and monthly trends."
-        },
-        {
-          url: "/projects/ecommerce/product_analytics.png",
-          caption: "Product Analytics & Return Rates — Margin analysis and category profitability."
-        }
-      ]
-    },
-    {
-      id: "workpulse",
-      title: "Workpulse – Employee Productivity Platform",
-      tagline: "Cross-platform desktop tracking application with offline-first telemetry and secure batch synchronization.",
-      category: "AI & Engineering",
-      techStack: ["Python", "PySide6", "REST APIs", "PostgreSQL", "SQLite", "PyInstaller", "Jenkins"],
-      role: "Core Desktop & API Engineer (Internship)",
-      githubUrl: "https://github.com/lakshitsharma7/ihrmsMonitor",
-      statusBadge: "Enterprise Tool",
-      overview: "Workpulse is a lightweight cross-platform desktop application designed to track employee activity sessions, active/idle time calculation, system-health metrics, and periodic screenshot captures with reliable background synchronization.",
-      problemStatement: "Modern hybrid and remote teams need non-intrusive, reliable productivity tracking that survives erratic network connectivity, protects sensitive data, and operates with zero noticeable CPU overhead on Windows and macOS workstations.",
-      keyContributions: [
-        "Architected the PySide6 desktop client interface and background event capture loop.",
-        "Engineered an offline-first caching mechanism using local SQLite to queue activity logs during network dropouts.",
-        "Implemented dynamic device token enrollment and RBAC-governed REST API synchronization with configurable upload batch intervals.",
-        "Built automated build and packaging scripts using PyInstaller for Windows installer (.exe) and macOS application bundles (.dmg).",
-        "Configured Jenkins CI/CD pipelines to automate application testing, compilation, and version release packaging."
-      ],
-      architecturePoints: [
-        "Multi-threaded architecture: Dedicated OS hook thread prevents GUI stutter during keyboard/mouse activity calculation.",
-        "Local queue worker: Periodically drains cached events to backend REST endpoints with backoff retries and payload compression.",
-        "Device Authentication: Hardware-bound dynamic enrollment tokens ensure anti-spoofing and session integrity."
-      ],
-      challengesAndSolutions: [
-        {
-          challenge: "Preventing UI freeze and high CPU utilization during high-frequency input monitoring and screenshot encoding.",
-          solution: "Decoupled the capture worker into an isolated QThread and implemented event debouncing with lightweight bitmap compression."
-        },
-        {
-          challenge: "Managing packet loss and sync race conditions when laptops sleep or switch Wi-Fi networks.",
-          solution: "Implemented transactional SQLite write-ahead logging (WAL) with batch status markers to eliminate duplicate sync records."
-        }
-      ],
-      outcomesAndImpact: [
-        "Built production-ready desktop binaries currently utilized in enterprise monitoring workflows.",
-        "Successfully packaged and distributed across Windows and macOS environments.",
-        "Zero data loss achieved during offline disconnect simulations."
-      ]
-    },
-    {
-      id: "ta-ats",
-      title: "TA-ATS – AI-Powered Talent Acquisition Platform",
-      tagline: "End-to-end recruitment management system with multi-role approval state machine and AI resume parsing.",
-      category: "AI & Engineering",
-      techStack: ["Next.js", "React", "FastAPI", "Django", "PostgreSQL", "Tailwind CSS", "AI APIs"],
-      role: "Full-Stack Engineer",
-      githubUrl: "https://github.com/lakshitsharma7/ATS-MINI",
-      isPrototypeOrDemo: false,
-      statusBadge: "Full-Stack Web App",
-      overview: "A modern Applicant Tracking System engineered to streamline candidate sourcing, resume evaluation, role-based requisition workflows, and recruitment state governance.",
-      problemStatement: "Recruitment teams face high coordination delays when requisitions pass between recruiters, hiring managers, and administrators without strict state tracking or automated candidate screening.",
-      keyContributions: [
-        "Built responsive frontend modules using Next.js, React, and Tailwind CSS with real-time requisition dashboards.",
-        "Structured backend microservices using FastAPI for high-throughput AI candidate parsing and Django for relational data management.",
-        "Implemented rigorous 5-tier Role-Based Access Control (Recruiter, Candidate, Hiring Manager, PM, Administrator).",
-        "Engineered the candidate requisition approval state engine: Draft → Pending Approval → Approved → Published."
-      ],
-      architecturePoints: [
-        "FastAPI AI ingestion pipeline that parses unstructured resume PDFs into structured candidate profiles using strict schema validation.",
-        "Normalized PostgreSQL database schema tracking candidate status history and audit events.",
-        "Secure JWT-based authentication with granular permission decorators."
-      ],
-      challengesAndSolutions: [
-        {
-          challenge: "Handling varied resume formatting (multi-column layouts, tables, scanned docs) during automated profile extraction.",
-          solution: "Engineered prompt pipelines with defensive fallback schemas and confidence scoring to flag low-confidence parses for human review."
-        },
-        {
-          challenge: "Enforcing complex state machine transitions to prevent unauthorized job publishing.",
-          solution: "Created centralized Django state validators that reject invalid state mutations and log role audit events."
-        }
-      ],
-      outcomesAndImpact: [
-        "Accelerated candidate review cycles with standardized summary views.",
-        "Delivered a clean, intuitive recruiter UI supporting role-specific filters and approval queues."
-      ]
-    },
-    {
-      id: "trackin",
-      title: "Trackin – Journey & Activity Tracking App",
-      tagline: "Cross-platform mobile journey tracking application with real-time location tracking and activity history.",
-      category: "Mobile & Web",
-      techStack: ["React Native", "TypeScript", "Mobile GPS Telemetry", "Interactive Maps", "Local Storage"],
-      role: "Mobile Developer",
-      githubUrl: "https://github.com/lakshitsharma7/Trackapp",
-      statusBadge: "Mobile App",
-      overview: "A responsive React Native mobile application engineered for real-time journey mapping, live GPS telemetry display, and persistent route history tracking.",
-      problemStatement: "Outdoor tracking apps often suffer from inaccurate polyline rendering, erratic coordinate jumps, and excessive device battery consumption during continuous background location queries.",
-      keyContributions: [
-        "Architected clean TypeScript components for real-time map visualization and telemetry HUD (speed, distance, elevation).",
-        "Implemented GPS coordinate smoothing to filter erratic satellite jumps before polyline rendering.",
-        "Built persistent local journey history storage allowing users to review past routes, durations, and average speeds."
-      ],
-      architecturePoints: [
-        "React Native hooks-based state management synchronizing active coordinates with map camera view.",
-        "Offline-capable trip logging enabling route saving without continuous data connection."
-      ],
-      challengesAndSolutions: [
-        {
-          challenge: "Handling GPS jitter that artificially inflated calculated travel distance.",
-          solution: "Applied a distance threshold filter (Haversine formula check) discarding coordinate deltas below the hardware accuracy margin."
-        }
-      ],
-      outcomesAndImpact: [
-        "Clean, battery-conscious mobile tracking interface with smooth map animations.",
-        "Complete open-source codebase available on GitHub."
-      ]
     }
   ] as ProjectCaseStudy[],
 
@@ -379,72 +347,44 @@ export const portfolioConfig = {
     {
       company: "Indovision Services",
       role: "Software Engineer Intern",
-      period: "Apr 2026 – Present",
-      location: "New Delhi, India",
+      period: "2026 – Present",
+      location: "North East Delhi, India",
       isCurrent: true,
-      technologies: ["Python", "FastAPI", "Django", "React", "Next.js", "PostgreSQL", "PySide6", "PyInstaller", "Jenkins"],
+      technologies: ["Python", "FastAPI", "Django", "React", "Next.js", "PostgreSQL", "PySide6", "PyInstaller", "REST APIs", "RBAC"],
       highlights: [
-        "Develop and maintain production software applications using Python, FastAPI, Django, React, Next.js, and PostgreSQL.",
-        "Build and integrate multiple REST APIs for authentication, device registration, activity tracking, attendance, screenshot capture, and data synchronization.",
-        "Engineer Workpulse, a cross-platform employee productivity monitoring application using Python and PySide6.",
-        "Implement activity/session tracking, idle detection, system-health telemetry, screenshot capture, and local-first data synchronization.",
-        "Develop API-driven synchronization with dynamic configuration, device tokens, batch processing, and upload status handling.",
-        "Work on authentication, user/device management, role-based access control (RBAC), and role-specific workflows.",
-        "Build Windows and macOS application packaging workflows using PyInstaller, Windows installers, and macOS DMG builds.",
-        "Configure Jenkins CI/CD pipelines to automate application build, testing, and deployment workflows.",
-        "Debug production issues involving APIs, HTTP errors, synchronization failures, and desktop application behavior.",
-        "Leverage AI-assisted development workflows to accelerate implementation, debugging, documentation, and code analysis."
+        "Develop and maintain software applications using Python, FastAPI, Django, React, Next.js and PostgreSQL.",
+        "Build and integrate REST APIs for authentication, device registration, activity tracking, attendance, tasks, screenshots, synchronization and application management.",
+        "Develop Workpulse, a cross-platform employee productivity monitoring application using Python and PySide6.",
+        "Implement activity/session tracking, idle detection, system-health collection, screenshot capture, local data handling and backend synchronization.",
+        "Develop API-driven synchronization with dynamic configuration, device tokens, batch processing and upload status handling.",
+        "Work on authentication, user/device management, RBAC and role-specific application workflows.",
+        "Build Windows and macOS application packaging workflows using PyInstaller, Windows installers and macOS DMG builds.",
+        "Debug production issues involving APIs, HTTP errors, synchronization failures, authentication and desktop application behavior.",
+        "Use AI-assisted development workflows to accelerate implementation, debugging, documentation and code analysis."
       ]
     },
     {
       company: "Nexen Bloom",
       role: "Data Analytics Intern",
-      period: "Feb 2026 – Apr 2026",
+      period: "Feb 2026 – April 2026",
       location: "Noida, India",
       isCurrent: false,
-      technologies: ["Python", "Pandas", "NumPy", "SQL", "Power BI", "Data Cleaning", "Data Visualization"],
+      technologies: ["Python", "Pandas", "NumPy", "SQL", "Power BI", "Data Cleaning", "Data Visualization", "KPI Dashboards"],
       highlights: [
-        "Worked with Python, Pandas, NumPy, SQL, and Power BI for data analysis and reporting.",
-        "Performed end-to-end data cleaning, transformation, and visualization for business reporting.",
-        "Built interactive dashboards and reports to communicate KPIs and operational insights to stakeholders.",
-        "Authored SQL queries for data extraction, filtering, aggregation, and analytical drill-downs."
-      ]
-    },
-    {
-      company: "CSRBOX & IBM SkillsBuild",
-      role: "Front-end Web Development Intern",
-      period: "Jun 2024 – Aug 2024",
-      location: "Remote / Internship Program (6 Weeks)",
-      isCurrent: false,
-      certificateId: "1TRJTOBbJq1MSszfzN6YxeofV_cyHpVub",
-      technologies: ["HTML5", "CSS3", "JavaScript", "Responsive Design", "Git"],
-      highlights: [
-        "Completed an intensive 6-week Summer Internship Program focused on modern front-end web development standards.",
-        "Built responsive, accessible web interfaces adhering to modern DOM manipulation and styling principles.",
-        "Earned verified certification under the IBM SkillsBuild & CSRBOX technical initiative."
-      ]
-    },
-    {
-      company: "CodSoft",
-      role: "Web Development Intern",
-      period: "Aug 2023 – Sep 2023",
-      location: "Remote / Internship Program (4 Weeks)",
-      isCurrent: false,
-      certificateId: "5371c18",
-      technologies: ["HTML5", "CSS3", "JavaScript", "UI Components"],
-      highlights: [
-        "Developed web applications and practical frontend UI modules during a 4-week summer internship.",
-        "Enhanced fundamentals in responsive CSS layouts, interactive JavaScript components, and version control."
+        "Work with Python, Pandas, NumPy, SQL and Power BI for data analysis and reporting.",
+        "Perform data cleaning, transformation and visualization for business reporting.",
+        "Build dashboards and reports to communicate KPIs and operational insights.",
+        "Use SQL for data extraction, filtering, aggregation and analysis."
       ]
     }
   ] as ExperienceItem[],
 
   education: [
     {
-      institution: "Krishna Engineering College",
+      institution: "Krishna Engineering College, AKTU",
       degree: "Bachelor of Technology (B.Tech) – Computer Science & Engineering",
       period: "2021 – 2025",
-      details: "Comprehensive academic coursework covering Data Structures & Algorithms, Database Management Systems (DBMS), Operating Systems, Computer Networks, Object-Oriented Programming, and Software Engineering Principles."
+      details: "Rigorous academic curriculum covering Data Structures & Algorithms, Database Management Systems (DBMS), Operating Systems, Computer Networks, Object-Oriented Programming, and Software Engineering Principles."
     }
   ] as EducationItem[],
 
@@ -485,32 +425,7 @@ export const portfolioConfig = {
       issuer: "GUVI | HCL (Google Partner)",
       date: "May 2025",
       category: "AI & LLMs"
-    },
-    {
-      title: "Front-end Web Development Internship Certificate",
-      issuer: "CSRBOX & IBM SkillsBuild",
-      date: "August 2024",
-      credentialId: "1TRJTOBbJq1MSszfzN6YxeofV_cyHpVub",
-      category: "Web & Programming"
-    },
-    {
-      title: "IBM SkillsBuild: Web Development Basics, JS & Deployment",
-      issuer: "IBM SkillsBuild",
-      date: "July 2024",
-      category: "Web & Programming"
-    },
-    {
-      title: "Web Development Internship Certificate",
-      issuer: "CodSoft",
-      date: "September 2023",
-      credentialId: "5371c18",
-      category: "Web & Programming"
-    },
-    {
-      title: "GUVI Certified in Essential UI/UX Skills",
-      issuer: "Guvi HCL",
-      date: "2024",
-      category: "Web & Programming"
     }
   ] as CertificationItem[]
 };
+

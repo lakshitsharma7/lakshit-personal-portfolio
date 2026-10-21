@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { portfolioConfig } from '../data/portfolioData';
 import { Menu, X, FileDown, ExternalLink } from 'lucide-react';
+import { trackEvent, ANALYTICS_EVENTS } from '../utils/analytics';
 
 interface NavbarProps {
   activeSection: string;
@@ -39,6 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
         {/* Brand / Logo */}
         <a
           href="#hero"
+          onClick={() => trackEvent(ANALYTICS_EVENTS.NAV_CLICK, { section: 'Home/Logo' })}
           className="group flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-sky-500 rounded-lg p-1"
         >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 via-indigo-600 to-violet-600 flex items-center justify-center font-bold text-white shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200">
@@ -62,6 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={() => trackEvent(ANALYTICS_EVENTS.NAV_CLICK, { section: link.label })}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                   isActive
                     ? 'bg-sky-500/20 text-sky-300 shadow-sm border border-sky-500/30 font-semibold'
@@ -80,6 +83,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             href={portfolioConfig.personal.resumeDownloadPath}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent(ANALYTICS_EVENTS.RESUME_VIEW, { location: 'navbar' })}
             className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 rounded-lg border border-slate-700 transition-colors"
             title="View Resume in New Tab"
           >
@@ -90,6 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
           <a
             href={portfolioConfig.personal.resumeDownloadPath}
             download="Lakshit_Sharma_Resume.pdf"
+            onClick={() => trackEvent(ANALYTICS_EVENTS.RESUME_DOWNLOAD, { location: 'navbar' })}
             className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 rounded-lg shadow-md shadow-sky-500/20 hover:shadow-sky-500/30 transition-all duration-200 hover:-translate-y-0.5"
             title="Download Lakshit Sharma Resume PDF"
           >
@@ -103,6 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
           <a
             href={portfolioConfig.personal.resumeDownloadPath}
             download="Lakshit_Sharma_Resume.pdf"
+            onClick={() => trackEvent(ANALYTICS_EVENTS.RESUME_DOWNLOAD, { location: 'navbar_mobile_header' })}
             className="p-2 text-sky-400 bg-sky-950/40 border border-sky-800/60 rounded-lg text-xs"
             aria-label="Download Resume"
           >
@@ -127,7 +133,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => {
+                  trackEvent(ANALYTICS_EVENTS.NAV_CLICK, { section: link.label, menu: 'mobile' });
+                  setMobileMenuOpen(false);
+                }}
                 className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors"
               >
                 {link.label}
@@ -139,7 +148,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
               href={portfolioConfig.personal.resumeDownloadPath}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                trackEvent(ANALYTICS_EVENTS.RESUME_VIEW, { location: 'navbar_mobile_drawer' });
+                setMobileMenuOpen(false);
+              }}
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700"
             >
               <span>View Resume (PDF)</span>
@@ -148,7 +160,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             <a
               href={portfolioConfig.personal.resumeDownloadPath}
               download="Lakshit_Sharma_Resume.pdf"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                trackEvent(ANALYTICS_EVENTS.RESUME_DOWNLOAD, { location: 'navbar_mobile_drawer' });
+                setMobileMenuOpen(false);
+              }}
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 shadow-md shadow-sky-500/20"
             >
               <FileDown className="w-4 h-4" />

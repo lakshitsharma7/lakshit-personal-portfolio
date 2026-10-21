@@ -18,6 +18,7 @@ import {
   RotateCcw,
   Compass,
 } from 'lucide-react';
+import { trackEvent, ANALYTICS_EVENTS } from '../../utils/analytics';
 
 interface AIAssistantProps {
   activeSection: string;
@@ -56,6 +57,10 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ activeSection }) => {
   const handleActionClick = (action: AssistantAction) => {
     setHasInteracted(true);
     setIsSpeaking(true);
+    trackEvent(ANALYTICS_EVENTS.AI_GUIDE_ACTION, {
+      action_id: action.actionId,
+      label: action.label,
+    });
     setTimeout(() => setIsSpeaking(false), 900);
 
     if (action.actionId === 'why_hire') {
@@ -95,6 +100,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ activeSection }) => {
   const handlePromptClick = (promptId: string) => {
     setHasInteracted(true);
     setIsSpeaking(true);
+    trackEvent(ANALYTICS_EVENTS.AI_GUIDE_PROMPT, { prompt_id: promptId });
 
     if (promptId === 'why_hire') {
       setCurrentMessage(WHY_HIRE_RESPONSE);
@@ -129,9 +135,10 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ activeSection }) => {
       sender: 'ai',
       text: `📍 Currently viewing: ${activeSection.toUpperCase()}\n\n${summaryText}`,
       actions: [
-        { label: 'Why Hire Lakshit?', actionId: 'why_hire', type: 'action' },
-        { label: 'View Data Analytics Projects', actionId: 'view_analytics', type: 'action' },
-        { label: 'Contact Lakshit', actionId: 'contact_lakshit', type: 'scroll', target: 'contact' },
+        { label: 'Why Hire Me?', actionId: 'why_hire', type: 'action' },
+        { label: 'Explore My Projects', actionId: 'explore_projects', type: 'scroll', target: 'projects' },
+        { label: 'View My Skills', actionId: 'view_skills', type: 'scroll', target: 'skills' },
+        { label: 'Contact Me', actionId: 'contact_me', type: 'scroll', target: 'contact' },
       ],
     });
 
@@ -179,14 +186,14 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ activeSection }) => {
               <div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-xs font-bold text-white tracking-wide">
-                    Lakshit&apos;s AI Career Guide
+                    Lakshit&apos;s Portfolio Guide
                   </span>
                   <span className="px-1.5 py-0.2 rounded-full text-[9px] font-mono font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-500/40">
                     ONLINE
                   </span>
                 </div>
                 <p className="text-[10px] text-slate-400 font-mono">
-                  Virtual Career Representative
+                  Interactive Career & Project Guide
                 </p>
               </div>
             </div>
@@ -302,7 +309,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ activeSection }) => {
             <span>Verified Portfolio Data</span>
             <span className="text-sky-400 flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
-              English Assistant
+              Interactive Guide
             </span>
           </div>
         </div>
@@ -316,15 +323,16 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ activeSection }) => {
             onClick={() => {
               setIsOpen(true);
               setIsMinimized(false);
+              trackEvent(ANALYTICS_EVENTS.AI_GUIDE_OPEN, { trigger: 'welcome_tag' });
             }}
             className="cursor-pointer hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/90 border border-sky-500/40 shadow-xl backdrop-blur-md text-slate-200 hover:text-white hover:border-sky-400 transition-all animate-bounce"
             style={{ animationDuration: '3s' }}
           >
             <Sparkles className="w-3.5 h-3.5 text-sky-400" />
             <div className="text-left">
-              <p className="text-xs font-semibold">Ask Lakshit&apos;s AI Agent</p>
+              <p className="text-xs font-semibold">Ask Lakshit&apos;s Portfolio Guide</p>
               <p className="text-[10px] text-slate-400 font-mono">
-                {hasInteracted ? 'Click to continue conversation' : 'Tour portfolio & projects'}
+                {hasInteracted ? 'Click to continue conversation' : 'Explore projects, skills & why hire'}
               </p>
             </div>
           </div>
@@ -341,6 +349,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ activeSection }) => {
             } else {
               setIsOpen(true);
               setIsMinimized(false);
+              trackEvent(ANALYTICS_EVENTS.AI_GUIDE_OPEN, { trigger: 'orb' });
             }
           }}
           onKeyDown={(e) => {

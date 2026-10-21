@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import type { ProjectCaseStudy } from '../data/portfolioData';
 import { X, ExternalLink, CheckCircle, AlertTriangle, Layers, Target, Award } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
+import { trackEvent, ANALYTICS_EVENTS } from '../utils/analytics';
 
 interface ProjectModalProps {
   project: ProjectCaseStudy | null;
@@ -222,6 +223,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent(ANALYTICS_EVENTS.PROJECT_GITHUB_CLICK, { project_id: project.id, title: project.title, location: 'modal' })}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
                 >
                   <GithubIcon className="w-4 h-4" />
@@ -233,6 +235,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent(ANALYTICS_EVENTS.PROJECT_DEMO_CLICK, { project_id: project.id, title: project.title, location: 'modal' })}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold text-white bg-sky-600 hover:bg-sky-500 transition-colors"
                 >
                   <span>Live Demo</span>
