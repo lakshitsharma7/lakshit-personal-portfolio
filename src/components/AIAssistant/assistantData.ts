@@ -73,11 +73,22 @@ export const PROMPT_RESPONSES: Record<string, AssistantMessage> = {
   projects_summary: {
     id: 'projects_summary_response',
     sender: 'ai',
-    text: `Lakshit's portfolio highlights 4 key projects directly from his resume:\n\n1. Workpulse – AI-Assisted Employee Productivity Platform:\nCross-platform PySide6 desktop app with session tracking, idle detection, screenshot capture, and local-first SQLite/REST batch sync.\n\n2. TA-ATS – AI-Powered Talent Acquisition Platform:\nFull-stack Applicant Tracking System in Next.js, React, FastAPI, Django, and PostgreSQL with 5-tier RBAC and AI resume parsing.\n\n3. AI Automation & Workflow Projects:\nOrchestrating APIs, webhooks, and AI models using n8n and Python for automated business workflows.\n\n4. Business Data Analysis & KPI Dashboard Project:\nData cleaning, SQL analytical queries, and Power BI dashboards communicating sales performance and return rates.`,
+    text: `Lakshit's portfolio highlights production systems and real-world projects directly from his experience and repositories:\n\n1. Workpulse – AI-Assisted Employee Productivity Platform (PySide6 & Python desktop telemetry)\n2. TA-ATS – AI-Powered Talent Acquisition Platform (Next.js, FastAPI & Django with 5-tier RBAC)\n3. AI Automation & Workflow Projects (n8n & Python APIs)\n4. CloudSync – Customer Churn & Retention Analytics (Power BI & Scikit-Learn)\n5. Amazon Best-Selling Books Analysis (Python EDA & Seaborn)\n6. E-Commerce Business Analytics Platform (SQL & Power BI)\n7. Trackin – Mobile Journey & Activity Tracking App (React Native)`,
     actions: [
       { label: 'Explore My Projects', actionId: 'explore_projects', type: 'scroll', target: 'projects' },
       { label: 'View GitHub Repositories', actionId: 'github_link', type: 'link', target: 'https://github.com/lakshitsharma7' },
       { label: 'Why Hire Me?', actionId: 'why_hire', type: 'action' },
+    ],
+  },
+
+  view_analytics: {
+    id: 'view_analytics_response',
+    sender: 'ai',
+    text: `Here are Lakshit's verified Data Analytics projects featuring real SQL scripts, exploratory data analysis in Python, and interactive Power BI dashboards:\n\n1. CloudSync — Customer Churn & Retention Analytics ($17.04M ARR evaluation & Scikit-Learn predictive churn model)\n2. Amazon Best-Selling Books Analysis (Python EDA, pricing elasticity & Seaborn visualizations)\n3. E-Commerce Business Analytics Platform (Multi-page Power BI KPI dashboards & SQL CTE analysis)`,
+    actions: [
+      { label: 'Explore Analytics Projects', actionId: 'filter_analytics_tab', type: 'scroll', target: 'projects' },
+      { label: 'View GitHub Repositories', actionId: 'github_link', type: 'link', target: 'https://github.com/lakshitsharma7' },
+      { label: 'Contact Me', actionId: 'contact_me', type: 'scroll', target: 'contact' },
     ],
   },
 

@@ -8,13 +8,13 @@ import { trackEvent, ANALYTICS_EVENTS } from '../utils/analytics';
 
 export const Projects: React.FC = () => {
   const { projects } = portfolioConfig;
-  const [activeTab, setActiveTab] = useState<'All' | 'AI & Engineering' | 'Data Analytics'>('All');
+  const [activeTab, setActiveTab] = useState<'All' | 'AI & Engineering' | 'Data Analytics' | 'Mobile & Web'>('All');
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
 
   useEffect(() => {
     const handleFilterEvent = (e: Event) => {
       const customEvent = e as CustomEvent<string>;
-      if (customEvent.detail && ['All', 'AI & Engineering', 'Data Analytics'].includes(customEvent.detail)) {
+      if (customEvent.detail && ['All', 'AI & Engineering', 'Data Analytics', 'Mobile & Web'].includes(customEvent.detail)) {
         setActiveTab(customEvent.detail as any);
       }
     };
@@ -73,7 +73,7 @@ export const Projects: React.FC = () => {
 
           {/* Category Tabs */}
           <div className="flex items-center gap-1.5 flex-wrap bg-slate-900/80 p-1.5 rounded-xl border border-slate-800">
-            {(['All', 'AI & Engineering', 'Data Analytics'] as const).map((tab) => (
+            {(['All', 'AI & Engineering', 'Data Analytics', 'Mobile & Web'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => {

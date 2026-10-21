@@ -167,6 +167,12 @@ export const portfolioConfig = {
         "Packaged and distributed native desktop installers for Windows (.exe) and macOS (.dmg) using PyInstaller.",
         "Successfully deployed in production employee monitoring and activity verification workflows.",
         "Maintained zero data loss across simulated network interruptions."
+      ],
+      screenshots: [
+        {
+          url: "/projects/workpulse/workpulse_telemetry.png",
+          caption: "Workpulse Desktop Telemetry & Session Monitoring — Real-time tracking and idle detection interface."
+        }
       ]
     },
     {
@@ -206,6 +212,16 @@ export const portfolioConfig = {
       outcomesAndImpact: [
         "Accelerated candidate review cycles with standardized summary cards and automated scoring.",
         "Delivered intuitive, role-specific dashboard views for recruiting teams and hiring managers."
+      ],
+      screenshots: [
+        {
+          url: "/projects/ta-ats/ta_ats_workflow.png",
+          caption: "Job Description & Requisition Approval Pipeline — Dynamic role-based state engine."
+        },
+        {
+          url: "/projects/ta-ats/ta_ats_auth_mcp.png",
+          caption: "Authentication & MCP Integration Architecture — Multi-service secure routing."
+        }
       ]
     },
     {
@@ -243,54 +259,6 @@ export const portfolioConfig = {
       outcomesAndImpact: [
         "Automated multi-step data pipelines connecting messaging, databases, and reporting systems.",
         "Eliminated repetitive manual triage workflows through intelligent event-driven automation."
-      ]
-    },
-    {
-      id: "business-data-analysis",
-      title: "Business Data Analysis & KPI Dashboard Project",
-      tagline: "End-to-end business intelligence solution performing data cleaning, SQL aggregations, and interactive Power BI KPI dashboards.",
-      category: "Data Analytics",
-      techStack: ["Python", "Pandas", "NumPy", "SQL", "Power BI", "Excel", "Data Visualization"],
-      role: "Data Analytics Intern (Nexen Bloom)",
-      githubUrl: "https://github.com/lakshitsharma7/ecommerce-business-analytics",
-      statusBadge: "Verified Analytics Project",
-      overview: "An end-to-end business intelligence and data analytics project performing systematic data cleaning, SQL querying, and multi-page Power BI dashboarding to communicate key operational metrics to stakeholders.",
-      problemStatement: "Business leaders and operations teams struggle to identify revenue leakages, product return patterns, and customer demand velocity when data is scattered across unstructured spreadsheets and raw transaction tables.",
-      keyContributions: [
-        "Performed data cleaning, transformation and aggregation on business datasets using Python, Pandas, NumPy and SQL.",
-        "Built Power BI dashboards and reports to visualize KPIs and communicate operational insights.",
-        "Used SQL for data extraction, filtering and analysis to support business reporting.",
-        "Created actionable executive reports facilitating data-driven decision making."
-      ],
-      architecturePoints: [
-        "Data Hygiene Pipeline: Python (Pandas/NumPy) scripts handling null values, outlier filtering, and data type normalization.",
-        "SQL Query Layer: Analytical SQL scripts utilizing Window Functions, Common Table Expressions (CTEs), and Multi-table Joins to compute aggregate metrics.",
-        "Power BI Star Schema: Normalized relational model connecting transaction facts with customer, category, and date dimensions with dynamic DAX measures."
-      ],
-      challengesAndSolutions: [
-        {
-          challenge: "Cleaning unstandardized transaction datasets with missing timestamps and duplicate order IDs.",
-          solution: "Built automated Python data cleaning routines with Pandas data validations and deduplication rules."
-        },
-        {
-          challenge: "Delivering intuitive visual hierarchies without overwhelming executive users.",
-          solution: "Structured multi-page dashboards featuring top-level KPI cards with drill-through capability into category and return analysis."
-        }
-      ],
-      outcomesAndImpact: [
-        "Communicated critical KPIs, sales trends, and category return rates through interactive visual reports.",
-        "Empowered stakeholders with self-service filtering by region, date range, and product line.",
-        "Complete open-source repository with documentation, SQL scripts, and Power BI dashboards on GitHub."
-      ],
-      screenshots: [
-        {
-          url: "/projects/ecommerce/sales_performance.png",
-          caption: "Sales Performance Dashboard — Tracking revenue velocity, order volume, and monthly metrics."
-        },
-        {
-          url: "/projects/ecommerce/product_analytics.png",
-          caption: "Product Analytics & Return Rates — Margin analysis and category performance breakdown."
-        }
       ]
     },
     {
@@ -339,6 +307,124 @@ export const portfolioConfig = {
           url: "/projects/churn/pbi_page2_churn_analysis.png",
           caption: "Churn Drivers & Cohort Matrix — Root cause breakdown by contract type, product tier, and usage velocity."
         }
+      ]
+    },
+    {
+      id: "amazon-books",
+      title: "Amazon Best-Selling Books Analysis",
+      tagline: "Exploratory Data Analysis (EDA) uncovering pricing elasticity, review-sales correlations, and genre trends in Python.",
+      category: "Data Analytics",
+      techStack: ["Python", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Jupyter Notebook"],
+      role: "Data Analyst",
+      githubUrl: "https://github.com/lakshitsharma7/amazon-books-analysis",
+      isPrototypeOrDemo: true,
+      statusBadge: "Verified EDA Project",
+      overview: "An end-to-end Python exploratory data analysis project examining consumer purchasing patterns, price-to-review elasticity, and author performance across book titles using a synthetic benchmark dataset.",
+      problemStatement: "Book publishers and digital authors struggle to optimize retail book pricing and predict category sales volume without empirical insight into how ratings, review counts, and formats interact.",
+      keyContributions: [
+        "Engineered an automated data cleaning and deduplication pipeline in Python, handling missing attributes and normalizing text data.",
+        "Conducted univariate, bivariate, and multivariate statistical analyses to explore rating distributions, price elasticity, and review volume.",
+        "Generated 5 publication-ready statistical visualizations exported directly from Matplotlib and Seaborn pipelines.",
+        "Structured a reproducible Jupyter Notebook and modular CLI script (`src/run_analysis.py`) for automated report exports."
+      ],
+      architecturePoints: [
+        "Data Pipeline: Raw synthetic CSV (1,000 records) → Validation & Deduplication → Cleaned dataset (995 unique titles) → Statistical summaries.",
+        "Visualization Suite: Automated generation of top-selling books, genre revenue distribution, review-to-sales correlations, and pricing density plots."
+      ],
+      challengesAndSolutions: [
+        {
+          challenge: "Preventing skewed review distributions from obscuring price elasticity patterns in standard scatter plots.",
+          solution: "Applied log transformation to review counts and segment filtering by genre to extract clearer empirical correlation trends."
+        }
+      ],
+      outcomesAndImpact: [
+        "Discovered that Non-Fiction titles maintained a higher average price point while Fiction titles dominated cumulative review volume.",
+        "Delivered a fully documented GitHub repository with complete charts, analysis notebooks, and structured output reports.",
+        "Transparently documented synthetic dataset scope adhering to ethical data analytics practices."
+      ],
+      screenshots: [
+        {
+          url: "/projects/amazon_books/01_top_10_bestselling_books.png",
+          caption: "Top 10 Best-Selling Titles — Unit sales and author volume distribution."
+        },
+        {
+          url: "/projects/amazon_books/02_genre_sales_analysis.png",
+          caption: "Genre Sales & Revenue Breakdown — Comparative performance across fiction and non-fiction categories."
+        }
+      ]
+    },
+    {
+      id: "ecommerce-analytics",
+      title: "E-Commerce Business Analytics Platform",
+      tagline: "End-to-end analytics platform with SQL CTEs, Python data transformation, and multi-page Power BI KPI dashboards.",
+      category: "Data Analytics",
+      techStack: ["Python", "Pandas", "SQL", "Power BI", "DAX", "MS Excel", "NumPy"],
+      role: "Data Analyst",
+      githubUrl: "https://github.com/lakshitsharma7/ecommerce-business-analytics",
+      statusBadge: "Verified Analytics Project",
+      overview: "A comprehensive business analytics project analyzing multi-thousand transaction datasets to diagnose sales trends, customer retention, return patterns, and profitability margins across product lines.",
+      problemStatement: "E-commerce retailers struggle to pinpoint product return rates, regional demand variations, and customer lifetime value due to uncleaned relational tables and siloed spreadsheets.",
+      keyContributions: [
+        "Executed data extraction, cleaning, and transformation pipelines using Python (Pandas & NumPy) to handle missing records and outliers.",
+        "Authored complex SQL queries utilizing Window Functions, Common Table Expressions (CTEs), and Multi-table Joins for aggregate metrics.",
+        "Engineered dynamic DAX measures in Power BI for Customer Acquisition Cost (CAC), Average Order Value (AOV), and Net Margin.",
+        "Designed an interactive multi-page Power BI dashboard featuring geographical heatmaps, cohort views, and product category slicers."
+      ],
+      architecturePoints: [
+        "Data pipeline: Raw CSV/SQL extracts → Python automated cleaning → Staged relational tables → Power BI Star Schema data model.",
+        "DAX time-intelligence calculations for Month-over-Month (MoM) and Year-over-Year (YoY) revenue variances."
+      ],
+      challengesAndSolutions: [
+        {
+          challenge: "Resolving performance slowdowns in Power BI when evaluating complex DAX iterators over large transaction tables.",
+          solution: "Restructured the data model into a clean Star Schema with pre-aggregated dimension tables, reducing query latency."
+        }
+      ],
+      outcomesAndImpact: [
+        "Identified top 15% high-return product categories and peak sales velocity timeframes.",
+        "Provided transparent executive-level reporting with drill-through capabilities.",
+        "Real screenshots and dashboard architecture documented on GitHub."
+      ],
+      screenshots: [
+        {
+          url: "/projects/ecommerce/sales_performance.png",
+          caption: "Sales Performance Dashboard — Revenue velocity, order volumes, and monthly trends."
+        },
+        {
+          url: "/projects/ecommerce/product_analytics.png",
+          caption: "Product Analytics & Return Rates — Margin analysis and category profitability."
+        }
+      ]
+    },
+    {
+      id: "trackin",
+      title: "Trackin – Journey & Activity Tracking App",
+      tagline: "Cross-platform mobile journey tracking application with real-time location tracking and activity history.",
+      category: "Mobile & Web",
+      techStack: ["React Native", "TypeScript", "Mobile GPS Telemetry", "Interactive Maps", "Local Storage"],
+      role: "Mobile Developer",
+      githubUrl: "https://github.com/lakshitsharma7/Trackapp",
+      statusBadge: "Mobile App",
+      overview: "A responsive React Native mobile application engineered for real-time journey mapping, live GPS telemetry display, and persistent route history tracking.",
+      problemStatement: "Outdoor tracking apps often suffer from inaccurate polyline rendering, erratic coordinate jumps, and excessive device battery consumption during continuous background location queries.",
+      keyContributions: [
+        "Architected clean TypeScript components for real-time map visualization and telemetry HUD (speed, distance, elevation).",
+        "Implemented GPS coordinate smoothing to filter erratic satellite jumps before polyline rendering.",
+        "Built persistent local journey history storage allowing users to review past routes, durations, and average speeds."
+      ],
+      architecturePoints: [
+        "React Native hooks-based state management synchronizing active coordinates with map camera view.",
+        "Offline-capable trip logging enabling route saving without continuous data connection."
+      ],
+      challengesAndSolutions: [
+        {
+          challenge: "Handling GPS jitter that artificially inflated calculated travel distance.",
+          solution: "Applied a distance threshold filter (Haversine formula check) discarding coordinate deltas below the hardware accuracy margin."
+        }
+      ],
+      outcomesAndImpact: [
+        "Clean, battery-conscious mobile tracking interface with smooth map animations.",
+        "Complete open-source codebase available on GitHub."
       ]
     }
   ] as ProjectCaseStudy[],
