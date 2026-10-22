@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 /**
  * ThreeBackground
  * 
- * Integrated 3D WebGL background combining:
+ * Integrated High-Visibility 3D WebGL background combining:
  * 1. Morphing 3D Particle Sculpture (PYTHON, Bar Chart, DNA, Regression, DATA, Network)
  * 2. Rolling 3D Data Analytics Bar Grid
  * 3. Glowing Network Nodes & Connecting Lines
@@ -27,6 +27,9 @@ const THREE_NEON_ROSE = new THREE.Color(COLOR_NEON_ROSE);
 
 export const ThreeBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(() => 
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -52,22 +55,27 @@ export const ThreeBackground: React.FC = () => {
     renderer.setClearColor(THREE_JET_BLACK, 1);
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x0A0A0A, 14, 38);
+    // Deep distance fog that preserves 100% full brightness and crispness on all active objects
+    scene.fog = new THREE.Fog(0x0A0A0A, 32, 75);
 
     const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 1.8, 14);
 
-    // Scene Lighting using strict palette
-    const ambientLight = new THREE.AmbientLight(0x007BA7, 0.65);
+    // Scene Lighting using strict palette with elevated vibrancy
+    const ambientLight = new THREE.AmbientLight(0x007BA7, 1.2);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0x007BA7, 0.85);
+    const dirLight = new THREE.DirectionalLight(0x007BA7, 1.5);
     dirLight.position.set(4, 10, 6);
     scene.add(dirLight);
 
-    const pointLight = new THREE.PointLight(0xFF2D95, 1.4, 35);
-    pointLight.position.set(-4, 3, 3);
-    scene.add(pointLight);
+    const pointLight1 = new THREE.PointLight(0xFF2D95, 2.5, 45);
+    pointLight1.position.set(-4, 3, 3);
+    scene.add(pointLight1);
+
+    const pointLight2 = new THREE.PointLight(0x007BA7, 2.2, 45);
+    pointLight2.position.set(8, -2, 5);
+    scene.add(pointLight2);
 
     // Helper: Random in range
     const rnd = (a: number, b: number) => a + Math.random() * (b - a);
@@ -77,36 +85,38 @@ export const ThreeBackground: React.FC = () => {
       return (u - 2) / 0.58;
     };
 
-    const isMobile = window.innerWidth < 768;
-    const N = isMobile ? 3600 : 6000;
+    const mobileCheck = window.innerWidth < 768;
+    // Increased particle density for sharp letterforms and dense 3D geometry
+    const N = mobileCheck ? 5500 : 8500;
     const tmp = new THREE.Color();
 
     // ----------------------------------------------------
-    // Particle Sprite Texture
+    // High-Vibrancy Particle Sprite Texture (Pure White Core + Soft Halo)
     // ----------------------------------------------------
     const dotCanvas = document.createElement('canvas');
-    dotCanvas.width = dotCanvas.height = 64;
+    dotCanvas.width = dotCanvas.height = 128;
     const dotCtx = dotCanvas.getContext('2d');
     if (dotCtx) {
-      const grd = dotCtx.createRadialGradient(32, 32, 0, 32, 32, 32);
-      grd.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      grd.addColorStop(0.25, 'rgba(0, 123, 167, 0.9)');
-      grd.addColorStop(0.65, 'rgba(255, 45, 149, 0.4)');
-      grd.addColorStop(1, 'rgba(10, 10, 10, 0)');
+      const grd = dotCtx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      grd.addColorStop(0, 'rgba(255, 255, 255, 1.0)');     // Bright neon core
+      grd.addColorStop(0.22, 'rgba(255, 255, 255, 0.95)');  // High density center
+      grd.addColorStop(0.48, 'rgba(255, 255, 255, 0.65)');  // Soft inner glow
+      grd.addColorStop(0.76, 'rgba(255, 255, 255, 0.22)');  // Ambient neon corona
+      grd.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');    // Edge transparency
       dotCtx.fillStyle = grd;
-      dotCtx.fillRect(0, 0, 64, 64);
+      dotCtx.fillRect(0, 0, 128, 128);
     }
     const dotTex = new THREE.CanvasTexture(dotCanvas);
 
     // ----------------------------------------------------
-    // LAYER 1: Morphing 3D Particle Sculpture (from File 2)
+    // LAYER 1: Morphing 3D Particle Sculpture
     // ----------------------------------------------------
     function put(P: Float32Array, C: Float32Array, i: number, x: number, y: number, z: number, col: THREE.Color) {
       P[i * 3] = x; P[i * 3 + 1] = y; P[i * 3 + 2] = z;
       C[i * 3] = col.r; C[i * 3 + 1] = col.g; C[i * 3 + 2] = col.b;
     }
 
-    // 1. Text Shapes (PYTHON, DATA)
+    // 1. Text Shapes (PYTHON, DATA) with extra-bold weight and dense sampling
     function textShape(str: string, width: number, colorFn: (c: THREE.Color, kx: number, ky: number) => void) {
       const c = document.createElement('canvas');
       c.width = 1600; c.height = 520;
@@ -114,10 +124,10 @@ export const ThreeBackground: React.FC = () => {
       if (!ctx) return { pts: new Float32Array(N * 3), cols: new Float32Array(N * 3) };
 
       const fam = '"Plus Jakarta Sans", "Inter", "Segoe UI", system-ui, sans-serif';
-      ctx.font = '700 300px ' + fam;
+      ctx.font = '900 300px ' + fam;
       let w = ctx.measureText(str).width;
       const px = Math.floor(300 * Math.min(1, 1500 / w));
-      ctx.font = '700 ' + px + 'px ' + fam;
+      ctx.font = '900 ' + px + 'px ' + fam;
       w = ctx.measureText(str).width;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -127,9 +137,9 @@ export const ThreeBackground: React.FC = () => {
       const d = ctx.getImageData(0, 0, 1600, 520).data;
       const list: number[] = [];
       let minY = 1e9, maxY = -1e9, minX = 1e9, maxX = -1e9;
-      for (let y = 0; y < 520; y += 4) {
-        for (let x = 0; x < 1600; x += 4) {
-          if (d[(y * 1600 + x) * 4 + 3] > 128) {
+      for (let y = 0; y < 520; y += 3) {
+        for (let x = 0; x < 1600; x += 3) {
+          if (d[(y * 1600 + x) * 4 + 3] > 110) {
             list.push(x, y);
             if (y < minY) minY = y; if (y > maxY) maxY = y;
             if (x < minX) minX = x; if (x > maxX) maxX = x;
@@ -146,38 +156,41 @@ export const ThreeBackground: React.FC = () => {
         const kx = (gx - minX) / Math.max(1, maxX - minX);
         const ky = (gy - minY) / Math.max(1, maxY - minY);
         colorFn(tmp, kx, ky);
-        put(P, C, i, (gx - 800 + rnd(-2, 2)) * s, -(gy - 260 + rnd(-2, 2)) * s, rnd(-0.4, 0.4), tmp);
+        // Reduced jitter for razor-sharp typography
+        put(P, C, i, (gx - 800 + rnd(-1.2, 1.2)) * s, -(gy - 260 + rnd(-1.2, 1.2)) * s, rnd(-0.25, 0.25), tmp);
       }
       return { pts: P, cols: C };
     }
 
-    // 2. Bar Chart Shape
+    // 2. Bar Chart Shape (Sculpture) with full-brightness columns and trendline
     function barShape() {
-      const H = [2.2, 3.0, 2.5, 3.8, 3.3, 4.6, 4.1, 5.4, 6.2];
-      const w = 0.9, gap = 0.38, yoff = -3.2;
+      const H = [2.2, 3.2, 2.6, 4.0, 3.4, 4.8, 4.2, 5.6, 6.4];
+      const w = 0.95, gap = 0.35, yoff = -3.2;
       const total = H.length * w + (H.length - 1) * gap;
       const x0 = -total / 2;
       const sum = H.reduce((a, b) => a + b, 0);
       const P = new Float32Array(N * 3);
       const C = new Float32Array(N * 3);
-      const nBars = Math.floor(N * 0.74);
-      const nAx = Math.floor(N * 0.14);
+      const nBars = Math.floor(N * 0.76);
+      const nAx = Math.floor(N * 0.12);
 
       for (let i = 0; i < N; i++) {
         if (i < nBars) {
           let r = Math.random() * sum, b = 0;
           while (b < H.length - 1 && r > H[b]) { r -= H[b]; b++; }
           const h = H[b];
-          tmp.copy(THREE_CERULEAN).lerp(THREE_NEON_ROSE, h / 6.2);
+          tmp.copy(THREE_CERULEAN).lerp(THREE_NEON_ROSE, h / 6.4);
           put(P, C, i, x0 + b * (w + gap) + rnd(0, w), yoff + rnd(0, h), rnd(-0.45, 0.45), tmp);
         } else if (i < nBars + nAx) {
-          tmp.copy(THREE_CERULEAN).multiplyScalar(0.45);
+          // Vibrant full-brightness axis lines
+          tmp.copy(THREE_CERULEAN);
           if (Math.random() < 0.6) {
             put(P, C, i, rnd(x0 - 0.5, -x0 + 0.5), yoff + rnd(-0.03, 0.03), rnd(-0.05, 0.05), tmp);
           } else {
             put(P, C, i, x0 - 0.5 + rnd(-0.03, 0.03), yoff + rnd(0, 7.4), rnd(-0.05, 0.05), tmp);
           }
         } else {
+          // Glowing Neon Rose Trendline
           const u = Math.random();
           put(P, C, i, x0 + u * total, yoff + 2.8 + u * 4.2 + Math.sin(u * 9) * 0.15 + rnd(-0.04, 0.04), rnd(-0.05, 0.05), THREE_NEON_ROSE);
         }
@@ -185,23 +198,23 @@ export const ThreeBackground: React.FC = () => {
       return { pts: P, cols: C };
     }
 
-    // 3. DNA Helix Shape
+    // 3. DNA Helix Shape with high-density glowing strands
     function helixShape() {
-      const R = 2.2, turns = 3.2, Hh = 10, rungs = 26;
+      const R = 2.4, turns = 3.2, Hh = 10, rungs = 28;
       const P = new Float32Array(N * 3);
       const C = new Float32Array(N * 3);
       const at = (t: number, off: number) => {
         const a = t * turns * Math.PI * 2 + off;
         return [R * Math.cos(a), (t - 0.5) * Hh, R * Math.sin(a)];
       };
-      const nStrand = Math.floor(N * 0.68);
+      const nStrand = Math.floor(N * 0.70);
 
       for (let i = 0; i < N; i++) {
         if (i < nStrand) {
           const isFirstStrand = i % 2 === 0;
           const t = Math.random();
           const p = at(t, isFirstStrand ? 0 : Math.PI);
-          put(P, C, i, p[0] + rnd(-0.14, 0.14), p[1] + rnd(-0.14, 0.14), p[2] + rnd(-0.14, 0.14), isFirstStrand ? THREE_CERULEAN : THREE_NEON_ROSE);
+          put(P, C, i, p[0] + rnd(-0.12, 0.12), p[1] + rnd(-0.12, 0.12), p[2] + rnd(-0.12, 0.12), isFirstStrand ? THREE_CERULEAN : THREE_NEON_ROSE);
         } else {
           const tr = Math.floor(Math.random() * rungs) / (rungs - 1) * 0.98 + 0.01;
           const a = at(tr, 0), b = at(tr, Math.PI);
@@ -213,17 +226,17 @@ export const ThreeBackground: React.FC = () => {
       return { pts: P, cols: C };
     }
 
-    // 4. Regression Scatter Plot Shape
+    // 4. Regression Scatter Plot Shape with clear axes and Neon Rose fit line
     function scatterShape() {
       const P = new Float32Array(N * 3);
       const C = new Float32Array(N * 3);
-      const nAx = Math.floor(N * 0.1);
-      const nLine = Math.floor(N * 0.08);
+      const nAx = Math.floor(N * 0.12);
+      const nLine = Math.floor(N * 0.10);
 
       for (let i = 0; i < N; i++) {
         if (i < nAx) {
           const m = Math.random();
-          tmp.copy(THREE_CERULEAN).multiplyScalar(0.4);
+          tmp.copy(THREE_CERULEAN); // Full brightness axes
           if (m < 0.4) put(P, C, i, rnd(-5.4, 5.4), -3.4, 0, tmp);
           else if (m < 0.75) put(P, C, i, -5.4, rnd(-3.4, 3.8), 0, tmp);
           else put(P, C, i, -5.4, -3.4, rnd(-3, 3), tmp);
@@ -235,27 +248,27 @@ export const ThreeBackground: React.FC = () => {
           const res = gauss() * 0.8;
           let py = 0.55 * px + res;
           py = Math.max(-3.2, Math.min(3.6, py));
-          tmp.copy(THREE_CERULEAN).lerp(THREE_NEON_ROSE, Math.min(1, Math.abs(res) / 1.8));
-          put(P, C, i, px, py, rnd(-2.6, 2.6), tmp);
+          tmp.copy(THREE_CERULEAN).lerp(THREE_NEON_ROSE, Math.min(1, Math.abs(res) / 1.6));
+          put(P, C, i, px, py, rnd(-2.4, 2.4), tmp);
         }
       }
       return { pts: P, cols: C };
     }
 
-    // 5. Network Sphere Shape
+    // 5. Network Sphere Shape with geodesic lattice rings
     function sphereShape() {
-      const R = 4.3;
+      const R = 4.4;
       const P = new Float32Array(N * 3);
       const C = new Float32Array(N * 3);
 
       for (let i = 0; i < N; i++) {
-        const inner = Math.random() < 0.1;
-        const rad = inner ? R * rnd(0.2, 0.9) : R;
+        const inner = Math.random() < 0.12;
+        const rad = inner ? R * rnd(0.2, 0.85) : R;
         const lat = Math.asin(rnd(-1, 1));
         let lon = rnd(0, Math.PI * 2);
         let col: THREE.Color;
 
-        if (!inner && Math.random() < 0.3) {
+        if (!inner && Math.random() < 0.35) {
           lon = Math.round(lon / (Math.PI / 6)) * (Math.PI / 6);
           col = THREE_NEON_ROSE;
         } else {
@@ -272,7 +285,7 @@ export const ThreeBackground: React.FC = () => {
       barShape(),
       helixShape(),
       scatterShape(),
-      textShape('DATA', 8.6, (c, kx) => { c.copy(THREE_NEON_ROSE).lerp(THREE_CERULEAN, kx); }),
+      textShape('DATA', 9.2, (c, kx) => { c.copy(THREE_NEON_ROSE).lerp(THREE_CERULEAN, kx); }),
       sphereShape()
     ];
 
@@ -297,12 +310,13 @@ export const ThreeBackground: React.FC = () => {
     cloudGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
     cloudGeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
 
+    // Increased particle size and 1.0 opacity for maximum radiance
     const cloudMat = new THREE.PointsMaterial({
-      size: 0.11,
+      size: mobileCheck ? 0.24 : 0.20,
       map: dotTex,
       vertexColors: true,
       transparent: true,
-      opacity: 0.95,
+      opacity: 1.0,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
       sizeAttenuation: true
@@ -313,25 +327,26 @@ export const ThreeBackground: React.FC = () => {
     sculptureGroup.add(cloud);
     scene.add(sculptureGroup);
 
-    // Orbit Rings
+    // Glowing Orbit Rings with multi-layer neon arcs
     const rings: THREE.LineLoop[] = [];
     const createRing = (r: number, tx: number, tz: number, color: number, op: number, spd: number) => {
       const pts: THREE.Vector3[] = [];
-      for (let i = 0; i < 180; i++) {
-        const a = (i / 180) * Math.PI * 2;
+      for (let i = 0; i < 200; i++) {
+        const a = (i / 200) * Math.PI * 2;
         pts.push(new THREE.Vector3(Math.cos(a) * r, 0, Math.sin(a) * r));
       }
       const g = new THREE.BufferGeometry().setFromPoints(pts);
-      const l = new THREE.LineLoop(g, new THREE.LineBasicMaterial({ color, transparent: true, opacity: op }));
+      const l = new THREE.LineLoop(g, new THREE.LineBasicMaterial({ color, transparent: true, opacity: op, blending: THREE.AdditiveBlending }));
       l.rotation.x = tx; l.rotation.z = tz;
       l.userData = { spd };
       sculptureGroup.add(l);
       rings.push(l);
     };
 
-    createRing(7.0, 1.2, 0.3, 0x007BA7, 0.32, 0.12);
-    createRing(7.8, 0.5, -0.6, 0xFF2D95, 0.25, -0.09);
-    createRing(8.6, 1.5, 0.9, 0x007BA7, 0.18, 0.06);
+    createRing(6.2, 0.9, -0.4, 0xFF2D95, 0.55, 0.14);
+    createRing(7.2, 1.2, 0.3, 0x007BA7, 0.65, 0.10);
+    createRing(8.0, 0.5, -0.6, 0xFF2D95, 0.58, -0.09);
+    createRing(8.8, 1.5, 0.9, 0x007BA7, 0.48, 0.07);
 
     // Shape Morphing State
     let curShapeIdx = 0;
@@ -353,24 +368,26 @@ export const ThreeBackground: React.FC = () => {
     setShape(0, false);
 
     // ----------------------------------------------------
-    // LAYER 2: Rolling 3D Data Bars (from File 1)
+    // LAYER 2: Rolling 3D Data Bars with Emissive Glow
     // ----------------------------------------------------
-    const GRID = 12;
+    const GRID = 14;
     const barsGroup = new THREE.Group();
-    const barGeo = new THREE.BoxGeometry(0.55, 1, 0.55);
+    const barGeo = new THREE.BoxGeometry(0.62, 1, 0.62);
     barGeo.translate(0, 0.5, 0);
 
-    const barMat = new THREE.MeshStandardMaterial({
-      roughness: 0.35,
-      metalness: 0.2,
-      wireframe: false,
+    const barMat = new THREE.MeshPhongMaterial({
+      shininess: 85,
+      specular: new THREE.Color(0xFF2D95),
+      emissive: new THREE.Color(0x002436), // Intrinsic Cerulean base glow so bars are always visible
+      transparent: true,
+      opacity: 0.92,
     });
     const bars = new THREE.InstancedMesh(barGeo, barMat, GRID * GRID);
     barsGroup.add(bars);
     scene.add(barsGroup);
 
     const barDummy = new THREE.Object3D();
-    const cLow = THREE_JET_BLACK;
+    const cLow = new THREE.Color('#00557a'); // Rich glowing Cerulean (never black!)
     const cMid = THREE_CERULEAN;
     const cHigh = THREE_NEON_ROSE;
 
@@ -379,17 +396,17 @@ export const ThreeBackground: React.FC = () => {
       let idx = 0;
       for (let gx = 0; gx < GRID; gx++) {
         for (let gz = 0; gz < GRID; gz++) {
-          const x = (gx - half) * 0.82;
-          const z = (gz - half) * 0.82;
+          const x = (gx - half) * 0.86;
+          const z = (gz - half) * 0.86;
           const d = Math.sqrt(x * x + z * z);
-          const h = 0.25 + (Math.sin(d * 0.85 - t * 1.2) + Math.cos(x * 0.45 + t * 0.55) + 2) * 0.48;
+          const h = 0.35 + (Math.sin(d * 0.85 - t * 1.2) + Math.cos(x * 0.45 + t * 0.55) + 2) * 0.52;
 
           barDummy.position.set(x, 0, z);
           barDummy.scale.set(1, h, 1);
           barDummy.updateMatrix();
           bars.setMatrixAt(idx, barDummy.matrix);
 
-          const k = Math.min(1, Math.max(0, (h - 0.25) / 1.8));
+          const k = Math.min(1, Math.max(0, (h - 0.35) / 2.0));
           if (k < 0.5) {
             tmp.copy(cLow).lerp(cMid, k * 2);
           } else {
@@ -404,9 +421,9 @@ export const ThreeBackground: React.FC = () => {
     }
 
     // ----------------------------------------------------
-    // LAYER 3: Glowing Network Nodes & Connecting Lines (File 1)
+    // LAYER 3: Glowing Network Nodes & Connecting Lines
     // ----------------------------------------------------
-    const NODES = 52;
+    const NODES = 65;
     const netGroup = new THREE.Group();
     scene.add(netGroup);
 
@@ -415,7 +432,7 @@ export const ThreeBackground: React.FC = () => {
     const nodePos = new Float32Array(NODES * 3);
 
     for (let n = 0; n < NODES; n++) {
-      netBase.push(new THREE.Vector3(rnd(-22, 22), rnd(-12, 12), -2 - rnd(0, 14)));
+      netBase.push(new THREE.Vector3(rnd(-22, 22), rnd(-12, 12), -1 - rnd(0, 14)));
       netPhase.push(Math.random() * Math.PI * 2);
     }
 
@@ -425,17 +442,17 @@ export const ThreeBackground: React.FC = () => {
       netNodeGeo,
       new THREE.PointsMaterial({
         color: 0xFF2D95,
-        size: 0.18,
+        size: 0.30, // Larger glowing node beacons
         map: dotTex,
         sizeAttenuation: true,
         transparent: true,
-        opacity: 0.85,
+        opacity: 1.0,
         blending: THREE.AdditiveBlending,
       })
     );
     netGroup.add(netNodes);
 
-    const MAX_SEG = 380;
+    const MAX_SEG = 420;
     const linePos = new Float32Array(MAX_SEG * 6);
     const lineGeo = new THREE.BufferGeometry();
     lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
@@ -446,7 +463,7 @@ export const ThreeBackground: React.FC = () => {
       new THREE.LineBasicMaterial({
         color: 0x007BA7,
         transparent: true,
-        opacity: 0.32,
+        opacity: 0.75, // Significantly boosted line visibility
         blending: THREE.AdditiveBlending,
       })
     );
@@ -467,7 +484,7 @@ export const ThreeBackground: React.FC = () => {
           const dx = nodePos[a * 3] - nodePos[c * 3];
           const dy = nodePos[a * 3 + 1] - nodePos[c * 3 + 1];
           const dz = nodePos[a * 3 + 2] - nodePos[c * 3 + 2];
-          if (dx * dx + dy * dy + dz * dz < 18) {
+          if (dx * dx + dy * dy + dz * dz < 24) {
             const o = seg * 6;
             linePos[o] = nodePos[a * 3]; linePos[o + 1] = nodePos[a * 3 + 1]; linePos[o + 2] = nodePos[a * 3 + 2];
             linePos[o + 3] = nodePos[c * 3]; linePos[o + 4] = nodePos[c * 3 + 1]; linePos[o + 5] = nodePos[c * 3 + 2];
@@ -480,7 +497,7 @@ export const ThreeBackground: React.FC = () => {
     }
 
     // ----------------------------------------------------
-    // LAYER 4: Floating Code Snippets (Strict Palette)
+    // LAYER 4: Floating Code Snippets with Dual-Pass Neon Glow
     // ----------------------------------------------------
     const codeGroup = new THREE.Group();
     scene.add(codeGroup);
@@ -511,26 +528,33 @@ export const ThreeBackground: React.FC = () => {
       c.width = 640; c.height = 96;
       const ctx = c.getContext('2d');
       if (!ctx) return;
-      ctx.font = '600 36px "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace';
+      ctx.font = '700 36px "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace';
       ctx.textBaseline = 'middle';
+      
+      // Dual-pass neon glow for vibrant, crisp code labels
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 12;
       ctx.fillStyle = color;
-      ctx.fillText(text, 12, 48);
+      ctx.fillText(text, 16, 48);
+
+      ctx.shadowBlur = 4;
+      ctx.fillText(text, 16, 48);
 
       const tex = new THREE.CanvasTexture(c);
       tex.minFilter = THREE.LinearFilter;
       const mat = new THREE.SpriteMaterial({
         map: tex,
         transparent: true,
-        opacity: 0.42,
+        opacity: 0.85, // Elevated opacity for crisp legibility
         depthWrite: false,
       });
 
       const sp = new THREE.Sprite(mat);
-      const scaleX = (640 / 96) * 0.58;
-      sp.scale.set(scaleX, 0.58, 1);
+      const scaleX = (640 / 96) * 0.72;
+      sp.scale.set(scaleX, 0.72, 1);
       sp.center.set(0, 0.5);
-      sp.position.set(rnd(-26, 22), rnd(-12, 12), -1 - rnd(2, 14));
-      sp.userData = { speed: rnd(0.12, 0.28) };
+      sp.position.set(rnd(-26, 22), rnd(-12, 12), -1 - rnd(1, 10));
+      sp.userData = { speed: rnd(0.14, 0.32) };
       codeGroup.add(sp);
       codeLabels.push(sp);
     });
@@ -538,7 +562,7 @@ export const ThreeBackground: React.FC = () => {
     // ----------------------------------------------------
     // LAYER 5: Background Deep Dust
     // ----------------------------------------------------
-    const dustN = 350;
+    const dustN = 400;
     const dustP = new Float32Array(dustN * 3);
     for (let d = 0; d < dustN; d++) {
       dustP[d * 3] = rnd(-32, 32);
@@ -550,11 +574,11 @@ export const ThreeBackground: React.FC = () => {
     const dust = new THREE.Points(
       dustG,
       new THREE.PointsMaterial({
-        size: 0.08,
+        size: 0.14,
         map: dotTex,
         color: 0x007BA7,
         transparent: true,
-        opacity: 0.35,
+        opacity: 0.65,
         depthWrite: false,
         blending: THREE.AdditiveBlending,
       })
@@ -572,23 +596,26 @@ export const ThreeBackground: React.FC = () => {
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
 
+      const mob = w < 768;
+      setIsMobile(mob);
+
       halfW = Math.tan((27.5 * Math.PI) / 180) * 14 * camera.aspect;
 
       if (camera.aspect < 0.95) {
         // Mobile view: center sculpture and lower bars
         sculptureGroup.position.set(0, -1.8, 0);
-        sculptureGroup.scale.setScalar(Math.min(0.85, halfW / 6.2));
+        sculptureGroup.scale.setScalar(Math.min(0.9, halfW / 5.8));
 
-        barsGroup.position.set(0, -4.8, -7);
-        barsGroup.scale.setScalar(0.7);
+        barsGroup.position.set(0, -4.2, -5.5);
+        barsGroup.scale.setScalar(0.75);
       } else {
         // Desktop view: position sculpture on the right
-        const xPos = halfW * 0.42;
-        sculptureGroup.position.set(xPos, 0.4, 0);
-        sculptureGroup.scale.setScalar(Math.min(1.05, (halfW - xPos) / 5.8));
+        const xPos = halfW * 0.40;
+        sculptureGroup.position.set(xPos, 0.35, 0);
+        sculptureGroup.scale.setScalar(Math.min(1.1, (halfW - xPos) / 5.4));
 
-        barsGroup.position.set(xPos + 0.8, -3.8, -5);
-        barsGroup.scale.setScalar(0.95);
+        barsGroup.position.set(xPos + 0.6, -3.4, -4.0);
+        barsGroup.scale.setScalar(1.0);
       }
 
       if (reduceMotion) {
@@ -668,14 +695,13 @@ export const ThreeBackground: React.FC = () => {
       camera.position.y = 1.8 + camPy * 0.85;
       camera.lookAt(0, 0, 0);
 
-      // 2. Rotate Sculpture & Update World Matrix
-      sculptureGroup.rotation.y = Math.sin(t * 0.2) * 0.35;
-      sculptureGroup.updateMatrixWorld(true);
+      // 2. Slow sculpture rotation
+      sculptureGroup.rotation.y = t * 0.08;
+      sculptureGroup.rotation.x = Math.sin(t * 0.05) * 0.06;
 
-      // 3. Mouse Raycasting to Sculpture Plane
+      // 3. Pointer Raycast onto sculpture plane
       mouseOn = false;
       if (hasPointer) {
-        hitPlane.constant = -sculptureGroup.position.z;
         ray.setFromCamera(ndc, camera);
         if (ray.ray.intersectPlane(hitPlane, hitPoint)) {
           sculptureGroup.worldToLocal(hitPoint);
@@ -798,11 +824,13 @@ export const ThreeBackground: React.FC = () => {
       aria-hidden="true"
     >
       <canvas ref={canvasRef} className="w-full h-full block" />
-      {/* Jet Black gradient shade so left-aligned content remains crystal clear */}
+      {/* Jet Black gradient shade so left-aligned content remains crystal clear, while 3D animations are 100% visible */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'linear-gradient(90deg, rgba(10, 10, 10, 0.92) 0%, rgba(10, 10, 10, 0.65) 35%, rgba(10, 10, 10, 0.25) 70%, transparent 100%)',
+          background: isMobile
+            ? 'linear-gradient(180deg, rgba(10, 10, 10, 0.65) 0%, rgba(10, 10, 10, 0.20) 28%, transparent 55%)'
+            : 'linear-gradient(90deg, rgba(10, 10, 10, 0.72) 0%, rgba(10, 10, 10, 0.35) 20%, transparent 45%)',
         }}
       />
     </div>
