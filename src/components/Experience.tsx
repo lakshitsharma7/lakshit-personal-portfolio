@@ -6,7 +6,7 @@ export const Experience: React.FC = () => {
   const { experience } = portfolioConfig;
 
   return (
-    <section id="experience" className="py-20 md:py-28 relative bg-[#080c14] border-t border-slate-800/80">
+    <section id="experience" className="py-20 md:py-28 relative bg-transparent border-t border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}

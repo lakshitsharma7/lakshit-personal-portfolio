@@ -7,7 +7,7 @@ export const About: React.FC = () => {
   const { about } = portfolioConfig;
 
   return (
-    <section id="about" className="py-20 md:py-28 bg-[#090e1a]/60 relative border-t border-slate-800/80">
+    <section id="about" className="py-20 md:py-28 bg-transparent relative border-t border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}

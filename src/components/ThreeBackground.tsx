@@ -651,6 +651,13 @@ export const ThreeBackground: React.FC = () => {
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
     window.addEventListener('pointerdown', handlePointerDown, { passive: true });
 
+    // Scroll Tracking for continuous 3D parallax depth across all sections
+    let scrollY = window.scrollY || 0;
+    const handleScroll = () => {
+      scrollY = window.scrollY || 0;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     const ray = new THREE.Raycaster();
     const hitPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
     const hitPoint = new THREE.Vector3();
@@ -688,12 +695,16 @@ export const ThreeBackground: React.FC = () => {
       const t = now / 1000;
       const f = dt * 60;
 
-      // 1. Smooth Camera Parallax
+      // 1. Smooth Camera Parallax & Subtle Continuous Scroll Parallax
       camPx += ((hasPointer ? ndc.x : 0) - camPx) * 0.04;
       camPy += ((hasPointer ? ndc.y : 0) - camPy) * 0.04;
+
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const scrollFactor = Math.min(1, Math.max(0, scrollY / maxScroll));
+
       camera.position.x = camPx * 1.3;
-      camera.position.y = 1.8 + camPy * 0.85;
-      camera.lookAt(0, 0, 0);
+      camera.position.y = (1.8 + camPy * 0.85) - scrollFactor * 1.6;
+      camera.lookAt(0, -scrollFactor * 0.6, 0);
 
       // 2. Slow sculpture rotation
       sculptureGroup.rotation.y = t * 0.08;
@@ -790,6 +801,7 @@ export const ThreeBackground: React.FC = () => {
       window.removeEventListener('resize', handleLayout);
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerdown', handlePointerDown);
+      window.removeEventListener('scroll', handleScroll);
 
       // Dispose Geometries and Materials
       cloudGeo.dispose();
