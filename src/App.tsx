@@ -10,6 +10,7 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
 import { AIAssistant } from './components/AIAssistant/AIAssistant';
+import { ThreeBackground } from './components/ThreeBackground';
 import { initAnalytics, trackSectionTransition } from './utils/analytics';
 
 export function App() {
@@ -45,9 +46,10 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#080c14] text-slate-200 selection:bg-sky-500/30 selection:text-sky-200 relative">
+      <ThreeBackground />
       <Navbar activeSection={activeSection} />
       
-      <main id="main-content">
+      <main id="main-content" className="relative z-10">
         <Hero />
         <About />
         <Skills />

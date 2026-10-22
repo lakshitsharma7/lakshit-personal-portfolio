@@ -1,0 +1,488 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>3D Portfolio Background</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  /* Layout: a living particle sculpture on the right morphs between Python, a bar chart, DNA, a regression, DATA and a network.
+     Hero copy sits left on a soft shade; a typed Python caption and shape chips sit at the bottom. */
+  :root {
+    --bg: #070b18;
+    --fg: #e8eefb;
+    --muted: #8d9bbd;
+    --py-blue: #4b8bbe;
+    --py-yellow: #ffd43b;
+    --mint: #5eead4;
+    --line: rgba(141, 155, 189, 0.28);
+    --chip: rgba(13, 21, 48, 0.72);
+    --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color-scheme: dark;
+  }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-display);
+    font-size: 16px;
+    padding-block: 20px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    overflow-x: hidden;
+  }
+  #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; touch-action: pan-y; }
+  .shade {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, rgba(7, 11, 24, 0.9) 0%, rgba(7, 11, 24, 0.6) 36%, rgba(7, 11, 24, 0) 66%);
+  }
+  .page {
+    position: relative; z-index: 2;
+    min-height: calc(100% - 40px);
+    max-width: 1100px; margin-inline: auto;
+    display: flex; flex-direction: column; gap: 40px;
+    pointer-events: none;
+  }
+  .page a, .page button { pointer-events: auto; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .mark { font-family: var(--font-mono); font-weight: 600; font-size: 15px; }
+  .mark span { color: var(--py-yellow); }
+  nav { display: flex; gap: 20px; font-family: var(--font-mono); font-size: 13px; }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:hover, nav a:focus-visible { color: var(--fg); }
+  main { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 22px; max-width: 600px; min-width: 0; }
+  .eyebrow { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mint); }
+  h1 { font-weight: 700; font-size: clamp(2.2rem, 6vw, 4.1rem); line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance; }
+  h1 em { font-style: normal; color: var(--py-yellow); }
+  .lede { color: var(--muted); font-size: 1.07rem; line-height: 1.6; max-width: 50ch; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+  .btn { font-family: var(--font-mono); font-size: 13.5px; padding: 11px 18px; border-radius: 4px; text-decoration: none; border: 1px solid var(--line); color: var(--fg); background: transparent; }
+  .btn.primary { background: var(--py-yellow); border-color: var(--py-yellow); color: #14161f; font-weight: 600; }
+  .btn:hover { border-color: var(--fg); }
+  .btn.primary:hover { background: #ffe075; border-color: #ffe075; }
+  .btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+  footer { display: flex; flex-direction: column; gap: 14px; }
+  .caption { font-family: var(--font-mono); font-size: 13.5px; color: var(--fg); min-height: 1.6em; overflow-wrap: anywhere; }
+  .caption .prompt { color: var(--py-yellow); }
+  .caption .caret { display: inline-block; width: 0.55em; height: 1.05em; background: var(--mint); vertical-align: -0.18em; margin-left: 2px; animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .chips .label { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-right: 4px; }
+  .chip { position: relative; overflow: hidden; font-family: var(--font-mono); font-size: 12px; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--chip); color: var(--muted); cursor: pointer; }
+  .chip:hover { color: var(--fg); }
+  .chip[aria-pressed="true"] { color: var(--fg); border-color: var(--py-blue); background: rgba(75, 139, 190, 0.25); }
+  .hint { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+  #fallback { display: none; font-family: var(--font-mono); color: var(--muted); font-size: 13px; }
+  @media (max-width: 640px) {
+    .shade { background: linear-gradient(180deg, rgba(7, 11, 24, 0.85) 0%, rgba(7, 11, 24, 0.5) 55%, rgba(7, 11, 24, 0.15) 100%); }
+    .page { gap: 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .caption .caret { animation: none; } }
+</style>
+
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="shade"></div>
+
+<div class="page">
+  <header>
+    <div class="mark">&lt;your<span>.</span>name /&gt;</div>
+    <nav aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="eyebrow">Python · Data Analysis · 3D Web</div>
+    <h1>I turn raw data into <em>things people can use.</em></h1>
+    <p class="lede">Python developer and data analyst. Dashboards, pipelines and the occasional experiment, like the particles behind this text. Move your cursor through them.</p>
+    <div class="actions">
+      <a class="btn primary" href="#work">View projects</a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+    <p id="fallback">3D view is not supported on this device, so the animated background is turned off.</p>
+  </main>
+
+  <footer>
+    <div class="caption" aria-live="off"><span class="prompt">&gt;&gt;&gt;</span> <span id="cap"></span><span class="caret"></span></div>
+    <div class="chips" id="chips" role="group" aria-label="Background shape"></div>
+    <div class="hint">Preview text. Replace with your own details. Click the background for a burst.</div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var canvas = document.getElementById('scene');
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+  } catch (e) {
+    document.getElementById('fallback').style.display = 'block';
+    return;
+  }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setClearColor(0x070b18, 1);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+  camera.position.set(0, 1.5, 14);
+
+  var BLUE = new THREE.Color('#4b8bbe'), YELLOW = new THREE.Color('#ffd43b'), MINT = new THREE.Color('#5eead4'), GREY = new THREE.Color('#7c8bb0');
+  var isMobile = window.innerWidth < 640;
+  var N = isMobile ? 4500 : 7500;
+  var tmp = new THREE.Color();
+
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function gauss() { var u = 0; for (var i = 0; i < 4; i++) u += Math.random(); return (u - 2) / 0.58; }
+  function put(P, C, i, x, y, z, col) {
+    P[i * 3] = x; P[i * 3 + 1] = y; P[i * 3 + 2] = z;
+    C[i * 3] = col.r; C[i * 3 + 1] = col.g; C[i * 3 + 2] = col.b;
+  }
+
+  /* ---------- Round particle sprite ---------- */
+  var dot = document.createElement('canvas'); dot.width = dot.height = 64;
+  var dctx = dot.getContext('2d');
+  var grd = dctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grd.addColorStop(0, 'rgba(255,255,255,1)'); grd.addColorStop(0.35, 'rgba(255,255,255,0.85)'); grd.addColorStop(1, 'rgba(255,255,255,0)');
+  dctx.fillStyle = grd; dctx.fillRect(0, 0, 64, 64);
+  var dotTex = new THREE.CanvasTexture(dot);
+
+  /* ---------- Shape builders ---------- */
+  function textShape(str, width, colorFn) {
+    var c = document.createElement('canvas'); c.width = 1600; c.height = 520;
+    var ctx = c.getContext('2d');
+    var fam = '"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif';
+    ctx.font = '700 300px ' + fam;
+    var w = ctx.measureText(str).width;
+    var px = Math.floor(300 * Math.min(1, 1500 / w));
+    ctx.font = '700 ' + px + 'px ' + fam;
+    w = ctx.measureText(str).width;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff';
+    ctx.fillText(str, 800, 260);
+    var d = ctx.getImageData(0, 0, 1600, 520).data;
+    var list = [], minY = 1e9, maxY = -1e9, minX = 1e9, maxX = -1e9;
+    for (var y = 0; y < 520; y += 4) {
+      for (var x = 0; x < 1600; x += 4) {
+        if (d[(y * 1600 + x) * 4 + 3] > 128) {
+          list.push(x, y);
+          if (y < minY) minY = y; if (y > maxY) maxY = y;
+          if (x < minX) minX = x; if (x > maxX) maxX = x;
+        }
+      }
+    }
+    var s = width / w, cnt = list.length / 2;
+    var P = new Float32Array(N * 3), C = new Float32Array(N * 3);
+    for (var i = 0; i < N; i++) {
+      var k = Math.floor(Math.random() * cnt);
+      var gx = list[k * 2], gy = list[k * 2 + 1];
+      var kx = (gx - minX) / Math.max(1, maxX - minX), ky = (gy - minY) / Math.max(1, maxY - minY);
+      colorFn(tmp, kx, ky);
+      put(P, C, i, (gx - 800 + rnd(-2, 2)) * s, -(gy - 260 + rnd(-2, 2)) * s, rnd(-0.4, 0.4), tmp);
+    }
+    return { pts: P, cols: C };
+  }
+
+  function barShape() {
+    var H = [2.2, 3.0, 2.5, 3.8, 3.3, 4.6, 4.1, 5.4, 6.2], w = 0.9, gap = 0.38, yoff = -3.2;
+    var total = H.length * w + (H.length - 1) * gap, x0 = -total / 2;
+    var sum = H.reduce(function (a, b) { return a + b; }, 0);
+    var P = new Float32Array(N * 3), C = new Float32Array(N * 3);
+    var nBars = Math.floor(N * 0.74), nAx = Math.floor(N * 0.14);
+    for (var i = 0; i < N; i++) {
+      if (i < nBars) {
+        var r = Math.random() * sum, b = 0;
+        while (b < H.length - 1 && r > H[b]) { r -= H[b]; b++; }
+        var h = H[b];
+        tmp.copy(BLUE).lerp(YELLOW, h / 6.2);
+        put(P, C, i, x0 + b * (w + gap) + rnd(0, w), yoff + rnd(0, h), rnd(-0.45, 0.45), tmp);
+      } else if (i < nBars + nAx) {
+        if (Math.random() < 0.6) put(P, C, i, rnd(x0 - 0.5, -x0 + 0.5), yoff + rnd(-0.03, 0.03), rnd(-0.05, 0.05), GREY);
+        else put(P, C, i, x0 - 0.5 + rnd(-0.03, 0.03), yoff + rnd(0, 7.4), rnd(-0.05, 0.05), GREY);
+      } else {
+        var u = Math.random();
+        put(P, C, i, x0 + u * total, yoff + 2.8 + u * 4.2 + Math.sin(u * 9) * 0.15 + rnd(-0.04, 0.04), rnd(-0.05, 0.05), MINT);
+      }
+    }
+    return { pts: P, cols: C };
+  }
+
+  function helixShape() {
+    var R = 2.2, turns = 3.2, Hh = 10, rungs = 26;
+    var P = new Float32Array(N * 3), C = new Float32Array(N * 3);
+    function at(t, off) { var a = t * turns * Math.PI * 2 + off; return [R * Math.cos(a), (t - 0.5) * Hh, R * Math.sin(a)]; }
+    var nStrand = Math.floor(N * 0.68);
+    for (var i = 0; i < N; i++) {
+      if (i < nStrand) {
+        var A = i % 2 === 0, t = Math.random(), p = at(t, A ? 0 : Math.PI);
+        put(P, C, i, p[0] + rnd(-0.14, 0.14), p[1] + rnd(-0.14, 0.14), p[2] + rnd(-0.14, 0.14), A ? BLUE : YELLOW);
+      } else {
+        var tr = Math.floor(Math.random() * rungs) / (rungs - 1) * 0.98 + 0.01;
+        var a = at(tr, 0), b = at(tr, Math.PI), s = Math.random();
+        put(P, C, i, a[0] + (b[0] - a[0]) * s, a[1] + (b[1] - a[1]) * s + rnd(-0.03, 0.03), a[2] + (b[2] - a[2]) * s, MINT);
+      }
+    }
+    return { pts: P, cols: C };
+  }
+
+  function scatterShape() {
+    var P = new Float32Array(N * 3), C = new Float32Array(N * 3);
+    var nAx = Math.floor(N * 0.1), nLine = Math.floor(N * 0.08);
+    for (var i = 0; i < N; i++) {
+      if (i < nAx) {
+        var m = Math.random();
+        if (m < 0.4) put(P, C, i, rnd(-5.4, 5.4), -3.4, 0, GREY);
+        else if (m < 0.75) put(P, C, i, -5.4, rnd(-3.4, 3.8), 0, GREY);
+        else put(P, C, i, -5.4, -3.4, rnd(-3, 3), GREY);
+      } else if (i < nAx + nLine) {
+        var x = rnd(-4.8, 4.8);
+        put(P, C, i, x, 0.55 * x + rnd(-0.03, 0.03), rnd(-0.04, 0.04), MINT);
+      } else {
+        var px = rnd(-4.6, 4.6), res = gauss() * 0.8, py = 0.55 * px + res;
+        py = Math.max(-3.2, Math.min(3.6, py));
+        tmp.copy(BLUE).lerp(YELLOW, Math.min(1, Math.abs(res) / 1.8));
+        put(P, C, i, px, py, rnd(-2.6, 2.6), tmp);
+      }
+    }
+    return { pts: P, cols: C };
+  }
+
+  function sphereShape() {
+    var R = 4.3, P = new Float32Array(N * 3), C = new Float32Array(N * 3);
+    for (var i = 0; i < N; i++) {
+      var inner = Math.random() < 0.1, rad = inner ? R * rnd(0.2, 0.9) : R;
+      var lat = Math.asin(rnd(-1, 1)), lon = rnd(0, Math.PI * 2), col;
+      if (!inner && Math.random() < 0.3) {
+        lon = Math.round(lon / (Math.PI / 6)) * (Math.PI / 6); col = YELLOW;
+      } else {
+        tmp.copy(BLUE).lerp(MINT, (Math.sin(lat) + 1) / 2); col = tmp;
+      }
+      put(P, C, i, rad * Math.cos(lat) * Math.cos(lon), rad * Math.sin(lat), rad * Math.cos(lat) * Math.sin(lon), col);
+    }
+    return { pts: P, cols: C };
+  }
+
+  var meta = [
+    { name: 'Python', cap: '>>> import this  # beautiful is better than ugly' },
+    { name: 'Bar chart', cap: 'df.groupby("month")["revenue"].sum().plot.bar()' },
+    { name: 'DNA', cap: 'pipe = Pipeline([clean, encode, fit])  # two strands, one flow' },
+    { name: 'Regression', cap: 'sns.regplot(x="spend", y="sales")  # r2 = 0.87' },
+    { name: 'Data', cap: 'df.describe()  # always look at the data first' },
+    { name: 'Network', cap: 'G = nx.barabasi_albert_graph(n=500, m=3)' }
+  ];
+  var shapes = [];
+
+  /* ---------- Particle system ---------- */
+  var pos = new Float32Array(N * 3), vel = new Float32Array(N * 3), col = new Float32Array(N * 3);
+  var stiff = new Float32Array(N), phase = new Float32Array(N);
+  for (var i = 0; i < N; i++) {
+    var r = rnd(8, 22), a = rnd(0, Math.PI * 2), b = Math.acos(rnd(-1, 1));
+    pos[i * 3] = r * Math.sin(b) * Math.cos(a); pos[i * 3 + 1] = r * Math.cos(b); pos[i * 3 + 2] = r * Math.sin(b) * Math.sin(a);
+    col[i * 3] = 0.3; col[i * 3 + 1] = 0.4; col[i * 3 + 2] = 0.6;
+    stiff[i] = rnd(0.012, 0.034); phase[i] = rnd(0, Math.PI * 2);
+  }
+  var geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  var mat = new THREE.PointsMaterial({ size: 0.1, map: dotTex, vertexColors: true, transparent: true, opacity: 0.95, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true });
+  var cloud = new THREE.Points(geo, mat);
+
+  var group = new THREE.Group();
+  group.add(cloud);
+  scene.add(group);
+
+  /* Orbit rings */
+  var rings = [];
+  function ring(r, tx, tz, color, op, spd) {
+    var pts = [];
+    for (var i = 0; i < 180; i++) { var a = i / 180 * Math.PI * 2; pts.push(new THREE.Vector3(Math.cos(a) * r, 0, Math.sin(a) * r)); }
+    var g = new THREE.BufferGeometry().setFromPoints(pts);
+    var l = new THREE.LineLoop(g, new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: op }));
+    l.rotation.x = tx; l.rotation.z = tz; l.userData.spd = spd;
+    group.add(l); rings.push(l);
+  }
+  ring(7.0, 1.2, 0.3, 0x4b8bbe, 0.28, 0.12);
+  ring(7.8, 0.5, -0.6, 0xffd43b, 0.2, -0.09);
+  ring(8.6, 1.5, 0.9, 0x5eead4, 0.16, 0.06);
+
+  /* Background dust */
+  var dustN = 450, dustP = new Float32Array(dustN * 3);
+  for (var d = 0; d < dustN; d++) { dustP[d * 3] = rnd(-34, 34); dustP[d * 3 + 1] = rnd(-20, 20); dustP[d * 3 + 2] = rnd(-34, -6); }
+  var dustG = new THREE.BufferGeometry(); dustG.setAttribute('position', new THREE.BufferAttribute(dustP, 3));
+  var dust = new THREE.Points(dustG, new THREE.PointsMaterial({ size: 0.09, map: dotTex, color: 0x8d9bbd, transparent: true, opacity: 0.45, depthWrite: false, blending: THREE.AdditiveBlending }));
+  scene.add(dust);
+
+  /* Faint code labels in the far field */
+  var codeGroup = new THREE.Group(); scene.add(codeGroup);
+  var snippets = ['import numpy as np', 'SELECT * FROM sales', 'def train(model):', 'plt.show()', '{ }', '</>', 'pd.read_csv("data.csv")', 'git push origin main', 'lambda x: x ** 2', 'class Pipeline:'];
+  var labels = [];
+  function buildLabels() {
+    snippets.forEach(function (s, idx) {
+      var c = document.createElement('canvas'); c.width = 640; c.height = 96;
+      var ctx = c.getContext('2d');
+      ctx.font = '600 38px "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace';
+      ctx.textBaseline = 'middle'; ctx.fillStyle = idx % 3 === 0 ? '#ffd43b' : idx % 3 === 1 ? '#4b8bbe' : '#5eead4';
+      ctx.fillText(s, 8, 48);
+      var tex = new THREE.CanvasTexture(c); tex.minFilter = THREE.LinearFilter;
+      var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.3, depthWrite: false }));
+      sp.scale.set(640 / 96 * 0.6, 0.6, 1); sp.center.set(0, 0.5);
+      sp.position.set(rnd(-26, 20), rnd(-9, 9), rnd(-18, -8));
+      sp.userData.speed = rnd(0.1, 0.25);
+      codeGroup.add(sp); labels.push(sp);
+    });
+  }
+
+  /* ---------- Current shape state ---------- */
+  var cur = 0, tgt = null, tcol = null;
+  function setShape(i, burst) {
+    cur = i; tgt = shapes[i].pts; tcol = shapes[i].cols;
+    if (burst) {
+      for (var k = 0; k < N; k++) {
+        vel[k * 3] += rnd(-0.5, 0.5); vel[k * 3 + 1] += rnd(-0.5, 0.5); vel[k * 3 + 2] += rnd(-0.5, 0.5);
+      }
+    }
+    chipEls.forEach(function (el, j) { el.setAttribute('aria-pressed', String(j === i)); });
+    typeCaption(meta[i].cap);
+    if (reduceMotion) snap();
+  }
+  function snap() {
+    for (var k = 0; k < N * 3; k++) { pos[k] = tgt[k]; col[k] = tcol[k]; vel[k] = 0; }
+    geo.attributes.position.needsUpdate = true; geo.attributes.color.needsUpdate = true;
+    renderOnce();
+  }
+
+  /* ---------- UI: chips + typed caption ---------- */
+  var chipsBox = document.getElementById('chips'), capEl = document.getElementById('cap');
+  var lbl = document.createElement('span'); lbl.className = 'label'; lbl.textContent = 'Shape'; chipsBox.appendChild(lbl);
+  var chipEls = meta.map(function (m, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = m.name; b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () { if (!tgt) return; setShape(i, true); pauseCycle(); });
+    chipsBox.appendChild(b); return b;
+  });
+  var typeTimer = null;
+  function typeCaption(text) {
+    clearInterval(typeTimer);
+    if (reduceMotion) { capEl.textContent = text; return; }
+    var n = 0; capEl.textContent = '';
+    typeTimer = setInterval(function () { n++; capEl.textContent = text.slice(0, n); if (n >= text.length) clearInterval(typeTimer); }, 22);
+  }
+
+  var cycleTimer = null, pauseUntil = 0;
+  function pauseCycle() { pauseUntil = Date.now() + 14000; }
+  function startCycle() {
+    if (reduceMotion) return;
+    cycleTimer = setInterval(function () {
+      if (Date.now() < pauseUntil || document.hidden) return;
+      setShape((cur + 1) % shapes.length, true);
+    }, 6500);
+  }
+
+  /* ---------- Layout / input ---------- */
+  var halfW = 13;
+  function layout() {
+    var w = window.innerWidth, h = window.innerHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+    halfW = Math.tan(27.5 * Math.PI / 180) * 14 * camera.aspect;
+    if (camera.aspect < 0.9) {
+      group.position.set(0, -1.6, 0);
+      group.scale.setScalar(Math.min(1, halfW / 6.4));
+    } else {
+      var x = halfW * 0.38;
+      group.position.set(x, 0, 0);
+      group.scale.setScalar(Math.min(1, (halfW - x) / 6.2));
+    }
+    if (reduceMotion && tgt) renderOnce();
+  }
+  window.addEventListener('resize', layout);
+  layout();
+
+  var ndc = new THREE.Vector2(), hasPointer = false, pulse = false;
+  window.addEventListener('pointermove', function (e) {
+    ndc.x = e.clientX / window.innerWidth * 2 - 1; ndc.y = -(e.clientY / window.innerHeight * 2 - 1); hasPointer = true;
+  });
+  window.addEventListener('pointerdown', function (e) {
+    if (e.target.closest && e.target.closest('a, button')) return;
+    ndc.x = e.clientX / window.innerWidth * 2 - 1; ndc.y = -(e.clientY / window.innerHeight * 2 - 1); hasPointer = true; pulse = true;
+  });
+
+  var ray = new THREE.Raycaster(), plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), hit = new THREE.Vector3();
+  var mx = 0, my = 0, mz = 0, mouseOn = false, px = 0, py = 0;
+
+  function renderOnce() { renderer.render(scene, camera); }
+
+  /* ---------- Loop ---------- */
+  var last = performance.now(), R = 2.3, R2 = R * R;
+  function frame(now) {
+    var dt = Math.min(0.05, (now - last) / 1000); last = now;
+    var t = now / 1000, f = dt * 60;
+
+    px += ((hasPointer ? ndc.x : 0) - px) * 0.04; py += ((hasPointer ? ndc.y : 0) - py) * 0.04;
+    camera.position.x = px * 1.4; camera.position.y = 1.5 + py * 0.9; camera.lookAt(0, 0, 0);
+    group.rotation.y = Math.sin(t * 0.22) * 0.38;
+    group.updateMatrixWorld(true);
+
+    mouseOn = false;
+    if (hasPointer) {
+      plane.constant = -group.position.z;
+      ray.setFromCamera(ndc, camera);
+      if (ray.ray.intersectPlane(plane, hit)) { group.worldToLocal(hit); mx = hit.x; my = hit.y; mz = hit.z; mouseOn = true; }
+    }
+
+    if (tgt) {
+      for (var i = 0; i < N; i++) {
+        var ix = i * 3, k = stiff[i] * f, ph = phase[i];
+        var x = pos[ix], y = pos[ix + 1], z = pos[ix + 2];
+        var vx = vel[ix], vy = vel[ix + 1], vz = vel[ix + 2];
+        vx += (tgt[ix] + Math.sin(t * 0.9 + ph) * 0.04 - x) * k;
+        vy += (tgt[ix + 1] + Math.cos(t * 0.8 + ph) * 0.04 - y) * k;
+        vz += (tgt[ix + 2] + Math.sin(t * 0.7 + ph * 1.3) * 0.04 - z) * k;
+        if (mouseOn) {
+          var dx = x - mx, dy = y - my, dz = z - mz, d2 = dx * dx + dy * dy + dz * dz;
+          if (d2 < R2 * (pulse ? 3 : 1) && d2 > 0.0001) {
+            var d = Math.sqrt(d2), s = (1 - d / (R * (pulse ? 1.7 : 1)));
+            s = s * s * (pulse ? 3.2 : 0.55) / d;
+            vx += dx * s; vy += dy * s; vz += dz * s;
+          }
+        }
+        vx *= 0.9; vy *= 0.9; vz *= 0.9;
+        vel[ix] = vx; vel[ix + 1] = vy; vel[ix + 2] = vz;
+        pos[ix] = x + vx * f; pos[ix + 1] = y + vy * f; pos[ix + 2] = z + vz * f;
+        col[ix] += (tcol[ix] - col[ix]) * 0.05; col[ix + 1] += (tcol[ix + 1] - col[ix + 1]) * 0.05; col[ix + 2] += (tcol[ix + 2] - col[ix + 2]) * 0.05;
+      }
+      pulse = false;
+      geo.attributes.position.needsUpdate = true; geo.attributes.color.needsUpdate = true;
+    }
+
+    for (var r = 0; r < rings.length; r++) rings[r].rotation.y += dt * rings[r].userData.spd;
+    dust.rotation.y = t * 0.01 + px * 0.05;
+    for (var l = 0; l < labels.length; l++) { var sp = labels[l]; sp.position.y += sp.userData.speed * dt; if (sp.position.y > 10) sp.position.y = -10; }
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+
+  /* ---------- Boot: wait for fonts so the text shapes use the real face ---------- */
+  var fontReady = (document.fonts && document.fonts.load)
+    ? Promise.all([document.fonts.load('700 120px "Bricolage Grotesque"'), document.fonts.load('600 38px "JetBrains Mono"')]).catch(function () {})
+    : Promise.resolve();
+  fontReady.then(function () {
+    shapes = [
+      textShape('PYTHON', 11.2, function (c, kx, ky) { c.copy(YELLOW).lerp(BLUE, ky); }),
+      barShape(), helixShape(), scatterShape(),
+      textShape('DATA', 8.6, function (c, kx) { c.copy(MINT).lerp(BLUE, kx); }),
+      sphereShape()
+    ];
+    buildLabels();
+    setShape(0, false);
+    if (reduceMotion) { snap(); return; }
+    startCycle();
+    requestAnimationFrame(frame);
+  });
+})();
+</script>
+
+</body></html>
